@@ -74,6 +74,7 @@ while loggedUser is None:
     login = input('Login: ').strip()
     password = input('Password: ')
     loggedUser = loginDataCheck(login, password, users)
+    if not loggedUser: print('invalid login or password')
 
 
 if loggedUser:
@@ -112,5 +113,3 @@ if loggedUser:
     else:
         raise ValueError('wrong privileges number')
 
-else:
-    print('invalid login or password')
