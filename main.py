@@ -1,9 +1,13 @@
 class User:
     
-    def __init__(self, login: str, password: str, privileges: int):
+    def __init__(self, login: str, password: str, privileges: int, payslips: list = None):
         self.login = login
         self.password = password
         self.privileges = privileges
+        self.payslips = payslips if payslips is not None else []
+
+    def addPayslip(self, payslip: object):
+        self.payslips.append(payslip)
 
 class Payslip:
 
@@ -15,17 +19,40 @@ class Payslip:
         self.healthInsuranceContribution = healthInsuranceContribution
 
     def printPayslip(self):
+        print('****************************************')
         print(f'Gross salary: {self.grossSalary}')
         print(f'Social contributions: {self.socialInsuranceContribution}')
         print(f'Health insurance contributions: {self.healthInsuranceContribution}')
         print(f'Tax: {self.taxPrepayment}')
         print(f'Net salary: {self.netSalary}')
+        print('****************************************')
+
+    # storing this as a file is temporary, just for the purpose of testing
+    def savePayslip(self, file: str, login: str):
+        with open(file, 'a') as payslipsFile:
+
+            fileContent = f'{login};{payslip.grossSalary};{payslip.netSalary};{payslip.taxPrepayment};{payslip.socialInsuranceContribution};{payslip.healthInsuranceContribution}\n'
+
+            payslipsFile.write(fileContent)
+
 
 users = [
     User('marta', '1234', 2),    # userPrivileges: 1 - worker, 2 - accountant, 3 - admin
     User('jan', '4321', 1),
     User('adam', '123321', 0)
 ]
+
+payslipsFile = open('payslips.txt', 'r')
+payslipsContentLines = payslipsFile.readlines()
+
+for line in payslipsContentLines:
+    payslipContent = line.strip().split(';')
+    for user in users:
+        if user.login == payslipContent[0]:
+            payslip = Payslip(payslipContent[1], payslipContent[2], payslipContent[3], payslipContent[4], payslipContent[5])
+            user.addPayslip(payslip)
+
+payslipsFile.close()
 
 
 def loginDataCheck(login, password, users):
@@ -108,8 +135,23 @@ if loggedUser:
 
         payslip.printPayslip()
 
+        # for the purpose of testing
+        logins = ['adam', 'marta', 'jan']
+
+
+        while True:
+            login = input('Whose payslip is it? Please provide me with workers login: ')
+            if login in logins:
+                payslip.savePayslip('payslips.txt', login)
+                break
+            else:
+                print('wrong login please try again!')
+
+
     elif loggedUser.privileges == 1:
         print('this is a list of your salaries')
+        for payslip in loggedUser.payslips:
+            payslip.printPayslip()
     else:
         raise ValueError('wrong privileges number')
 
