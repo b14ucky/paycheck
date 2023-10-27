@@ -1,10 +1,10 @@
 class User:
     
-    def __init__(self, login: str, password: str, privileges: int, payslips: list = None):
+    def __init__(self, login: str, password: str, privileges: int, payslips: list = []):
         self.login = login
         self.password = password
         self.privileges = privileges
-        self.payslips = payslips if payslips is not None else []
+        self.payslips = payslips
 
     def addPayslip(self, payslip: object):
         self.payslips.append(payslip)
