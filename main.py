@@ -1,10 +1,10 @@
 class User:
     
-    def __init__(self, login: str, password: str, privileges: int, payslips: list = []):
+    def __init__(self, login: str, password: str, privileges: int, payslips: list = None):
         self.login = login
         self.password = password
         self.privileges = privileges
-        self.payslips = payslips
+        self.payslips = payslips if payslips is not None else []
 
     def addPayslip(self, payslip: object):
         self.payslips.append(payslip)
@@ -92,131 +92,66 @@ def calculateSalary(numberOfHours, hourlyWage, higherCostsOfGettingIncome):
 
     return Payslip(grossSalary, netSalary, taxPrepayment, socialInsuranceContribution, healthInsuranceContribution)
 
-def login():
-    print('Welcome to salaries app. Please provide your login info to continue')
 
-    loggedUser = None
+print('Welcome to salaries app. Please provide your login info to continue')
 
-    while loggedUser is None:
-        login = input('Login: ').strip()
-        password = input('Password: ')
-        loggedUser = loginDataCheck(login, password, users)
-        if not loggedUser: print('invalid login or password')
+loggedUser = None
 
-    return loggedUser
+while loggedUser is None:
+    login = input('Login: ').strip()
+    password = input('Password: ')
+    loggedUser = loginDataCheck(login, password, users)
+    if not loggedUser: print('invalid login or password')
 
-def mainMenu(user):
 
+if loggedUser:
     print('welcome to your homescreen')
-
-    if user.privileges == 3:
+    if loggedUser.privileges == 3:
         print('admin')
+    elif loggedUser.privileges == 2:
+        while True:
+            selection = input('do you want to calculate a salary (y/n): ').lower()[0]
+            if selection != 'y' and selection != 'n':
+                print('wrong selection try again')
+            if selection == 'y':
+                break
 
-    elif user.privileges == 2:
+        print('welcome to salary calculator')
+        numberOfHours = int(input('Please enter a number of hours: '))
+        hourlyWage = float(input('Please enter the hourly wage: '))
 
-        selection = int(input('please select what you want to do:\n1 - salary calculator\n2 - logout\n'))
-        if selection != 1 and selection != 2:
-            print('wrong selection try again')
-        if selection == 1:
-            print('welcome to salary calculator')
+        while True:
+            selection = input('do you want to include higher costs of getting income (y/n): ').lower()[0]
+            if selection != 'y' and selection != 'n':
+                print('wrong selection try again')
+            if selection == 'y':
+                higherCostsOfGettingIncome = True
+                break
+            else:
+                higherCostsOfGettingIncome = False
+                break
+        
+        payslip = calculateSalary(numberOfHours, hourlyWage, higherCostsOfGettingIncome)
 
-            numberOfHours = int(input('Please enter a number of hours: '))
-            hourlyWage = float(input('Please enter the hourly wage: '))
+        payslip.printPayslip()
 
-            while True:
-                choice = input('do you want to include higher costs of getting income (y/n): ').lower()[0]
-                if choice != 'y' and selection != 'n':
-                    print('wrong selection try again')
-                if choice == 'y':
-                    higherCostsOfGettingIncome = True
-                    break
-                else:
-                    higherCostsOfGettingIncome = False
-                    break
-            
-            payslip = calculateSalary(numberOfHours, hourlyWage, higherCostsOfGettingIncome)
+        # for the purpose of testing
+        logins = ['adam', 'marta', 'jan']
 
+
+        while True:
+            login = input('Whose payslip is it? Please provide me with workers login: ')
+            if login in logins:
+                payslip.savePayslip('payslips.txt', login)
+                break
+            else:
+                print('wrong login please try again!')
+
+
+    elif loggedUser.privileges == 1:
+        print('this is a list of your salaries')
+        for payslip in loggedUser.payslips:
             payslip.printPayslip()
-            
-            # for the purpose of testing
-            logins = ['adam', 'marta', 'jan']
-
-
-            while True:
-                login = input('Whose payslip is it? Please provide me with workers login: ')
-                if login in logins:
-                    payslip.savePayslip('payslips.txt', login)
-                    break
-                else:
-                    print('wrong login please try again!')
-        
-            mainMenu(user)
-
-
-        if selection == 2:
-            print('succesfuly loged out, you can log in again')
-
-            loggedUser = login()
-            mainMenu(loggedUser)
-
-
-    elif user.privileges == 1:
-        print('test')
-
-
-
-
-loggedUser = login()
-
-mainMenu(loggedUser)
-
-# if loggedUser:
-#     if loggedUser.privileges == 3:
-#         print('admin')
-#     elif loggedUser.privileges == 2:
-#         while True:
-#             selection = input('do you want to calculate a salary (y/n): ').lower()[0]
-#             if selection != 'y' and selection != 'n':
-#                 print('wrong selection try again')
-#             if selection == 'y':
-#                 break
-
-#         print('welcome to salary calculator')
-#         numberOfHours = int(input('Please enter a number of hours: '))
-#         hourlyWage = float(input('Please enter the hourly wage: '))
-
-#         while True:
-#             selection = input('do you want to include higher costs of getting income (y/n): ').lower()[0]
-#             if selection != 'y' and selection != 'n':
-#                 print('wrong selection try again')
-#             if selection == 'y':
-#                 higherCostsOfGettingIncome = True
-#                 break
-#             else:
-#                 higherCostsOfGettingIncome = False
-#                 break
-        
-#         payslip = calculateSalary(numberOfHours, hourlyWage, higherCostsOfGettingIncome)
-
-#         payslip.printPayslip()
-
-#         # for the purpose of testing
-#         logins = ['adam', 'marta', 'jan']
-
-
-#         while True:
-#             login = input('Whose payslip is it? Please provide me with workers login: ')
-#             if login in logins:
-#                 payslip.savePayslip('payslips.txt', login)
-#                 break
-#             else:
-#                 print('wrong login please try again!')
-
-
-#     elif loggedUser.privileges == 1:
-#         print('this is a list of your salaries')
-#         for payslip in loggedUser.payslips:
-#             payslip.printPayslip()
-#     else:
-#         raise ValueError('wrong privileges number')
+    else:
+        raise ValueError('wrong privileges number')
 
