@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    'https://localhost:8000',
+    'https://127.0.0.1:8000',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
 
 # Application definition
 
@@ -39,9 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'payslips.apps.PayslipsConfig',
     'rest_framework',
+    'corsheaders',
+    'authentication.apps.AuthenticationConfig'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -84,6 +94,15 @@ DATABASES = {
         'HOST':'localhost',
         'PORT':'3306',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSIONS_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
 }
 
 
