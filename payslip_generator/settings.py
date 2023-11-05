@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'payslips.apps.PayslipsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
