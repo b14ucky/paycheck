@@ -1,0 +1,459 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.sectionsWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+main {
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.navbar {
+    width: 15vw;
+    position: fixed;
+    background: #4BBEA7;
+    top: 0;
+    bottom: 0;
+}
+
+.buttonsWrapper {
+    flex: 75% 1 1;
+}
+
+.loginTitle {
+    padding: 1em;
+    display: grid;
+    place-items: center;
+}
+
+.iconWrapper {
+    align-self: center;
+    display: grid;
+    place-items: center;
+    flex: 25% 1 1;
+}
+
+.iconWrapper > svg {
+    width: 100px;
+    height: 100px;
+}
+
+.lineWrapper {
+    display: grid;
+    place-items: center;
+}
+
+.lineWrapper > .line {
+    width: 50%;
+    border: 1px solid #F6F6F3;
+    opacity: .35;
+}
+
+.mainWrapper {
+    width: 85vw;
+    min-height: 100vh;
+    position: absolute;
+    right: 0;
+}
+
+.main {
+    flex: 85% 1 1;
+    display: grid;
+    place-items: center;
+    max-width: 80%;
+}
+
+.title {
+    display: grid;
+    place-items: center;
+    color: #26292C;
+    padding: 1.35em;
+}
+
+.title > .titleText {
+    letter-spacing: .25em;
+}
+
+.loginSubtitle,
+.registerSubtitle {
+    padding: .5em;
+    text-align: center;
+}
+
+.registerTitle {
+    padding: 2em;
+    display: grid;
+    place-items: center;
+}
+
+.register > .registerTitle {
+    padding: .5em;
+}
+
+.login {
+    flex: 60% 1 1;
+    background: #F6F6F3;
+}
+
+.loginGoTo {
+    flex: 40% 1 1;
+    background: #F6F6F3;
+}
+
+.register {
+    flex: 60% 1 1;
+    background: #3BA590;
+}
+
+.registerGoTo {
+    flex: 40% 1 1;
+    background: #3BA590;
+}
+
+.titleText {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.subtitleText {
+    font-size: 1rem;
+    color: #7C7B79;
+}
+
+.registerSubtitle > .subtitleText {
+    color: #F6F6F3;
+    opacity: .65;
+}
+
+.login > .loginTitle > .titleText,
+.loginGoTo > .loginTitle > .titleText {
+    color: #26292C;
+}
+
+.registerGoTo > .registerTitle > .titleText,
+.register > .registerTitle > .titleText {
+    color: #F6F6F3;
+}
+
+.paragraphText {
+    font-size: 1.25rem;
+    letter-spacing: 3px;
+    max-width: 17.5em;
+    text-align: center;
+    line-height: 1.75em;
+}
+
+.registerText > .paragraphText {
+    color: #F6F6F3;
+}
+
+.loginText > .paragraphText {
+    color: #3BA590;
+}
+
+.inputField {
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    padding: .25em .5em;
+    padding-left: 7%;
+    height: 3.5em;
+    width: 25em;
+    border-radius: 1.5em;
+    border: none;
+    background: rgb(75 190 167 / .15);
+    font-size: 1rem;
+    font-weight: 500;
+    color: #3BA590;
+}
+
+.registerInputField {
+    background: rgb(246 246 243 / .15);
+    color: #F6F6F3;
+}
+
+.inputField::placeholder,
+.inputField::-moz-placeholder,
+.inputField::-webkit-input-placeholder {
+    position: absolute;
+    font-weight: 500;
+    font-size: 1rem;
+    left: 7%;
+    color: #3BA590;
+}
+
+.registerInputField::placeholder,
+.registerInputField::-moz-placeholder,
+.registerInputField::-webkit-input-placeholder {
+    color: #F6F6F3;
+    opacity: .75;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+}
+
+input[type=number] { 
+    -moz-appearance: textfield;
+    appearance: textfield;
+    margin: 0; 
+}
+
+input[type=radio] { 
+    accent-color: #3BA590; 
+}
+
+.radioWrapper > label:nth-of-type(2) {
+    padding-left: 1em;
+}
+
+.costsOfGettingIncomeWrapper {
+    display: grid;
+    place-items: center;
+}
+
+.costsOfGettingIncomeWrapper > .line {
+    width: 45%;
+    border-color: #3BA590;
+}
+
+.calculatorTitle {
+    display: flex;
+}
+
+.calculatorTitle > svg {
+    width: 65px;
+    height: 65px;
+    flex: 25% 1 1;
+}
+
+.textWrapper > .text {
+    font-size: 1.5rem;
+}
+
+.textWrapper {
+    flex: 75% 1 1;
+    display: grid;
+    align-items: center;
+}
+
+.calculator {
+    padding: 2em;
+    border-radius: 1em;
+    -webkit-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+}
+
+.payslip {
+    display: flex;
+    padding: 1em;
+    border-radius: 1em;
+    -webkit-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    margin: 1.5em auto;
+}
+
+.payslipContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.salariesContainer {
+    display: flex;
+}
+
+.salaryText {
+    display: flex;
+    flex-direction: column;
+    padding: .5em;
+}
+
+.number {
+    font-size: 2.15rem;
+    color: #3BA590;
+}
+
+.downloadPDFButtonContainer {
+    display: grid;
+    place-items: center;
+    padding: .5em;
+    padding-left: 1em;
+}
+
+.periodContainer {
+    padding: .5em;
+}
+
+blockquote {
+    font-size: 2.5rem;
+}
+
+.line {
+    width: 35%;
+    border: 1px solid #3BA590;
+    opacity: .15;
+}
+
+.register > .line {
+    border-color: #F6F6F3;
+}
+
+.username {
+    padding-top: 2em;
+}
+
+
+.button {
+    font-size: 1.15rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    border: none;
+    padding: .25em .5em;
+    border-radius: 20em;
+    width: 10em;
+    height: 2.5em;
+    cursor: pointer;
+    color: #26292C;
+}
+
+.downloadPDFButton {
+    color: #F6F6F3;
+    background: #3BA590;
+}
+
+.createAccountContainer {
+    padding: 2em;
+    display: grid;
+    place-items: center;
+}
+
+#createAccountButton {
+    color: #26292C;
+    background: #F6F6F3;
+}
+
+.loginButtonContainer {
+    display: grid;
+    place-items: center;
+}
+
+#loginButton {
+    color: #F6F6F3;
+    background: #3BA590;
+}
+
+.calculateButtonContainer {
+    display: grid;
+    place-items: center;
+}
+
+#calculateButton {
+    color: #F6F6F3;
+    background: #3BA590;
+}
+
+.text {
+    color: #7C7B79;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.OnFocus:focus {
+    outline: none;
+    transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1); 
+    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+}
+
+.inputAnimation {
+    box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+    transition: all 100ms ease;
+    -o-transition: all 100ms ease;
+    -ms-transition: all 100ms ease;
+    -moz-transition: all 100ms ease;
+    -webkit-transition: all 100ms ease;
+}
+
+.inputAnimation:hover {
+    transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1); 
+    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+}
+
+.buttonAnimation {
+    box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+    transition: all 100ms ease;
+    -o-transition: all 100ms ease;
+    -ms-transition: all 100ms ease;
+    -moz-transition: all 100ms ease;
+    -webkit-transition: all 100ms ease;
+}
+
+.buttonAnimation:hover {
+    transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1); 
+    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+}
+
+.buttonAnimation:active {
+    box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
+}
+
+
+
+@media (max-width: 1000px) {
+    main {
+        flex-direction: column;
+    }
+
+    section {
+        padding: 5rem 5rem;
+    }
+
+    .inputField {
+        transform: scale(.75);
+        -o-transform: scale(.75);
+        -ms-transform: scale(.75);
+        -moz-transform: scale(.75);
+        -webkit-transform: scale(.75); 
+    }
+
+    .OnFocus:focus {
+        transform: scale(.825);
+        -o-transform: scale(.825);
+        -ms-transform: scale(.825);
+        -moz-transform: scale(.825);
+        -webkit-transform: scale(.825);
+    }
+}
