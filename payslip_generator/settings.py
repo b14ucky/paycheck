@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'payslips.apps.PayslipsConfig',
     'rest_framework',
     'corsheaders',
-    'authentication.apps.AuthenticationConfig'
+    'authentication.apps.AuthenticationConfig',
+    'frontend.apps.FrontendConfig',
 ]
 
 MIDDLEWARE = [
