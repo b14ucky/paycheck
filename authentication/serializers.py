@@ -11,13 +11,12 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def create(self, data):
         userObject = userModel.objects.create_user(username=data['username'], password=data['password'])
-        userObject.email = data['email']
         userObject.save()
         return userObject
 
 
 class UserLoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    username = serializers.CharField()
     password = serializers.CharField()
     
     def checkUser(self, data):
