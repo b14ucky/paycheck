@@ -11,6 +11,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def create(self, data):
         userObject = userModel.objects.create_user(username=data['username'], password=data['password'])
+        userObject.first_name = data['firstName']
+        userObject.last_name = data['lastName']
+        userObject.email = data['email']
         userObject.save()
         return userObject
 
@@ -30,4 +33,4 @@ class UserLoginSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model =  userModel
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'first_name', 'last_name')
