@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom'
 import "./App.css";
+import axios from 'axios';
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
+const client = axios.create();
 
 export default function LoginPage() {
-    
+        
     const navigate = useNavigate();
+
+    const [currentUser, setCurrentUser] = useState();
+    const username = useRef(null);
+    const password = useRef(null);
+
+    function submitLogin(event) {
+        event.preventDefault();
+        client.post(
+            '/auth/login',
+            {
+                username: username.current.value,
+                password: password.current.value
+            }
+        ).then(response => {
+            setCurrentUser(true);
+            event.target.reset();
+            navigate('/dashboard/')
+        })
+    }
 
     return (
         <main>
@@ -18,13 +43,13 @@ export default function LoginPage() {
                 </div>
                 <hr className="line" />
                 <div className="loginForm">
-                    <form method="post">
+                    <form onSubmit={event => submitLogin(event)}>
                         <div className="username">
-                            <input type="text" name="Username" id="username" placeholder="Username" className="inputAnimation OnFocus inputField" autoComplete="username" />
+                            <input type="text" name="Username" id="username" placeholder="Username" className="inputAnimation OnFocus inputField" autoComplete="username" ref={username}/>
                         </div>
                         <br /><br />
                         <div className="password">
-                            <input type="password" name="password" id="password" placeholder="Password" className="inputAnimation OnFocus inputField" autoComplete="current-password" />
+                            <input type="password" name="password" id="password" placeholder="Password" className="inputAnimation OnFocus inputField" autoComplete="current-password" ref={password} />
                         </div>
                         <br /><br />
                         <div className="loginButtonContainer">

@@ -174,7 +174,7 @@ section {
     font-family: 'Inter', sans-serif;
     position: relative;
     padding: .25em .5em;
-    padding-left: 7%;
+    padding-left: 1.5em;
     height: 3.5em;
     width: 25em;
     border-radius: 1.5em;
@@ -196,8 +196,20 @@ section {
     position: absolute;
     font-weight: 500;
     font-size: 1rem;
-    left: 7%;
+    left: 1.5em;
     color: #3BA590;
+}
+
+.inputSmallWrapper {
+    display: flex;
+}
+
+.inputSmallLeft {
+    margin-left: 1em;
+}
+
+.inputSmall {
+    width: 12em;
 }
 
 .registerInputField::placeholder,

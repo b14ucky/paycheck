@@ -1,9 +1,26 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import './App.css';
+import axios from 'axios';
+
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
+const client = axios.create();
 
 export default function PayslipsPage() {
     
     const navigate = useNavigate();
+
+    function handleLogout(event) {
+        event.preventDefault();
+        client.post('/auth/logout')
+        .then(response => {
+            navigate('/login/');
+        });
+    }
 
     return (
         <main>
@@ -29,7 +46,7 @@ export default function PayslipsPage() {
                     </div>
                     <br /><br />
                     <div className="logoutButtonContainer">
-                        <input type="button" value="Log out" className="logoutButton button buttonAnimation OnFocus" />
+                        <input type="button" value="Log out" className="logoutButton button buttonAnimation OnFocus" onClick={event => handleLogout(event)} />
                     </div>
                 </div>
             </section>
