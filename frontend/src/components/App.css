@@ -453,6 +453,15 @@ blockquote {
         padding: 5rem 5rem;
     }
 
+    .inputSmallWrapper {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inputSmallLeft {
+        margin-left: -2em;
+    }
+
     .inputField {
         transform: scale(.75);
         -o-transform: scale(.75);
