@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './App.css';
 import axios from 'axios';
@@ -13,6 +13,18 @@ const client = axios.create();
 export default function PayslipsPage() {
     
     const navigate = useNavigate();
+
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+
+    useEffect(() => {
+        client.get('/auth/user')
+        .then(response => {
+            setFirstName(response.data.user.first_name);
+            setLastName(response.data.user.last_name);
+        })
+        .catch(error => navigate('/login/'))
+    }, []);
 
     function handleLogout(event) {
         event.preventDefault();
