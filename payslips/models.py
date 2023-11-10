@@ -7,5 +7,5 @@ class Payslip(models.Model):
     grossPay = models.FloatField(null=False)
     taxPrepayment = models.FloatField(null=False)
     socialInsuranceContribution = models.FloatField(null=False)
-    healtInsuranceContribution = models.FloatField(null=False)
+    healthInsuranceContribution = models.FloatField(null=False)
     dateOfPreparation = models.DateField(default=timezone.now)

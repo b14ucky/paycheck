@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import PayslipSerializer
+from .serializers import PayslipSerializer, CreatePayslipSerializer
 from .models import Payslip
 
 # Create your views here.
@@ -10,12 +10,22 @@ class PayslipView(generics.ListAPIView):
     queryset = Payslip.objects.all()
     serializer_class = PayslipSerializer
 
+class CreatePayslipView(APIView):
+
+    def post(self, request):
+        data = request.data
+        serializer = CreatePayslipSerializer(data=data)
+        if serializer.is_valid(raise_exception=True):
+            payslip = serializer.create(data)
+            if payslip:
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class GetPayslipView(APIView):
-    serializer_class = PayslipSerializer
+    serializer = PayslipSerializer
     lookupUrlKwarg = 'id'
 
-    def get(self, request, format=None):
+    def get(self, request):
         id = request.GET.get(self.lookupUrlKwarg)
         if id != None:
             payslip = Payslip.objects.filter(id=id)
