@@ -6,7 +6,7 @@ from .serializers import UserLoginSerializer, UserRegisterSerializer, UserSerial
 
 from rest_framework import permissions, status
 
-class UserRegister(APIView):
+class UserRegisterView(APIView):
     permission_classes = (permissions.AllowAny,)
     def post(self, request):
         data = request.data
