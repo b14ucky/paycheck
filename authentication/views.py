@@ -35,6 +35,19 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response(status=status.HTTP_200_OK)
+    
+
+class UsersView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
+
+    def get(self, request):
+        userModel = get_user_model()
+
+        users = [UserSerializer(user).data for user in userModel.objects.all()]
+
+        if len(users) > 0:
+            return Response({'users': users}, status=status.HTTP_200_OK)
 
 
 class UserView(APIView):
