@@ -506,6 +506,62 @@ blockquote {
 }
 
 
+.blurBackground {
+    position: absolute;
+    inset: 0;
+    background: rgb(124 123 121 / .35);
+    visibility: hidden;
+}
+
+.confirmationPromptContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.confirmationPrompt {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+    width: 25rem;
+    height: 25rem;
+    background: rgb(59 165 144 / .975);
+    border-radius: 3rem;
+    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+}
+
+.closeWrapper {
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    transform: scale(.5);
+    cursor: pointer;
+    rotate: 0deg;
+    transition: rotate 200ms ease-in-out;
+}
+
+.closeWrapper:hover {
+    rotate: 90deg;
+}
+
+.closeWrapper:active {
+    transform: scale(.45);
+    transition: transfrom 150ms ease-out;
+}
+
+.promptTitle {
+    color: #F6F6F3;
+    font-size: 1.75rem;
+    padding: .5em;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 3px;
+}
+
+
 @media (max-width: 1000px) {
     main {
         flex-direction: column;
