@@ -17,7 +17,10 @@ export default function CalculatorPage() {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
 
+    const numberOfHours = useRef(null);
+    const hourlyWage = useRef(null);
     const username = useRef(null);
+    const costsOfGettingIncome = useRef(null);
 
     useEffect(() => {
         client.get('/auth/user')
@@ -35,6 +38,22 @@ export default function CalculatorPage() {
         .then(response => {
             navigate('/login/');
         });
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        client.post(
+            '/api/create-payslip/',
+            {
+                numberOfHours: numberOfHours.current.value,
+                hourlyWage: hourlyWage.current.value,
+                username: username.current.value,
+                costsOfGettingIncome: costsOfGettingIncome.current.value
+            }
+        ).then(response => {
+            event.target.reset();
+        })
+        .catch(error => console.log(error))
     }
 
     function createSelectMenu() {
@@ -93,11 +112,11 @@ export default function CalculatorPage() {
                         </div>
                         <br /><br />
                         <div className="numberOfHours">
-                            <input type="number" name="numberOfHours" id="numberOfHours" placeholder="Number Of Hours" step="0.01" className="inputAnimation OnFocus inputField" />
+                            <input type="number" name="numberOfHours" id="numberOfHours" placeholder="Number Of Hours" step="0.01" className="inputAnimation OnFocus inputField" ref={numberOfHours}/>
                         </div>
                         <br /><br />
                         <div className="hourlyWage">
-                            <input type="number" name="hourlyWage" id="hourlyWage" placeholder="Hourly Wage" step="0.01" className="inputAnimation OnFocus inputField" />
+                            <input type="number" name="hourlyWage" id="hourlyWage" placeholder="Hourly Wage" step="0.01" className="inputAnimation OnFocus inputField" ref={hourlyWage}/>
                         </div>
                         <br /><br />
                         <div className="selectionWrapper">
@@ -114,9 +133,9 @@ export default function CalculatorPage() {
                             <br />
                             <div className="radioWrapper">
                                 <label htmlFor="costsOfGettingIncomeTrue" className="text">300 zł</label>
-                                <input type="radio" name="costsOfGettingIncome" id="costsOfGettingIncomeTrue" value={300} className="OnFocus" />
+                                <input type="radio" name="costsOfGettingIncome" id="costsOfGettingIncomeTrue" value={300} className="OnFocus" ref={costsOfGettingIncome}/>
                                 <label htmlFor="costsOfGettingIncomeFalse" className="text">250 zł</label>
-                                <input type="radio" name="costsOfGettingIncome" id="costsOfGettingIncomeFalse" value={250} className="OnFocus" defaultChecked />
+                                <input type="radio" name="costsOfGettingIncome" id="costsOfGettingIncomeFalse" value={250} className="OnFocus" defaultChecked ref={costsOfGettingIncome}/>
                             </div>
                             <br />
                             <hr className="line" />
