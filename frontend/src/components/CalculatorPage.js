@@ -22,7 +22,6 @@ export default function CalculatorPage() {
     const hourlyWage = useRef(null);
     const username = useRef(null);
     const costsOfGettingIncome = useRef(null);
-
     const username = useRef(null);
 
     useEffect(() => {
@@ -59,7 +58,6 @@ export default function CalculatorPage() {
         })
         .catch(error => console.log(error))
     }
-  
     function createSelectMenu() {
 
         const selectMenu = document.getElementById('selectMenu');
@@ -152,7 +150,7 @@ export default function CalculatorPage() {
                 </div>
             </section>
             <div className="blurBackground" style={{visibility: promptVisible ? 'visible' : 'hidden'}}>
-                <div className="confirmationPromptContainer">
+                <div className="confirmationPromptContainer" style={{transform: promptVisible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)'}}>
                     <div className="confirmationPrompt">
                         <div className="closeWrapper" onClick={() => setPromptVisible(false)}>
                             <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#F6F6F3"><g id="SVGRepoBgCarrier" strokeWidth="0"></g><g id="SVGRepoTracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepoIconCarrier"> <g id="Menu / CloseLG"> <path id="Vector" d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" stroke="#F6F6F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
