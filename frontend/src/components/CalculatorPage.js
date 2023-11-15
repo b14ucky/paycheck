@@ -22,6 +22,7 @@ export default function CalculatorPage() {
     const hourlyWage = useRef(null);
     const username = useRef(null);
     const costsOfGettingIncome = useRef(null);
+    const username = useRef(null);
 
     useEffect(() => {
         client.get('/auth/user')
@@ -57,7 +58,6 @@ export default function CalculatorPage() {
         })
         .catch(error => console.log(error))
     }
-
     function createSelectMenu() {
 
         const selectMenu = document.getElementById('selectMenu');
