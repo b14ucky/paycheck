@@ -15,6 +15,8 @@ export default function RegisterPage() {
     const navigate = useNavigate();
 
     const [promptVisible, setPromptVisible] = useState(false);
+    const [errorPromptVisible, setErrorPromptVisible] = useState(false);
+    const [passwordErrorPromptVisible, setPasswordErrorPromptVisible] = useState(false);
     
     const username = useRef(null);
     const firstName = useRef(null);
@@ -38,8 +40,27 @@ export default function RegisterPage() {
             ).then(response => {
                 event.target.reset();
                 setPromptVisible(true);
-            })
-        } 
+            }).catch(error => {
+                console.log(error.response.data.InvalidPassword)
+                if (error.response.data.username) {
+                    const usernameField = document.getElementById('username');
+                    usernameField.classList.add('invalidField');
+                    setErrorPromptVisible(true);
+                }
+            });
+        } else {
+            setPasswordErrorPromptVisible(true);
+        }
+    }
+
+    function checkPasswords() {
+        const confirmPasswordField = document.getElementById('password2');
+
+        if (password.current.value !== confirmPassword.current.value) {
+            confirmPasswordField.classList.add('invalidField');
+        } else {
+            confirmPasswordField.classList.remove('invalidField');
+        }
     }
 
     return (
@@ -72,23 +93,23 @@ export default function RegisterPage() {
                         <br />
                         <div className="inputSmallWrapper">
                             <div className="firstName">
-                                <input ref={firstName} type="text" name="firstName" id="firstName" className="registerInputField inputAnimation OnFocus inputField inputSmall" placeholder="First Name" autoComplete="given-name" />
+                                <input ref={firstName} type="text" name="firstName" id="firstName" className="registerInputField inputAnimation OnFocus inputField inputSmall" placeholder="First Name" autoComplete="given-name" required/>
                             </div>
                             <div className="lastName">
-                                <input ref={lastName} type="text" name="lastName" id="lastName" className="registerInputField inputAnimation OnFocus inputField inputSmall inputSmallLeft" placeholder="Last Name" autoComplete="family-name" />
+                                <input ref={lastName} type="text" name="lastName" id="lastName" className="registerInputField inputAnimation OnFocus inputField inputSmall inputSmallLeft" placeholder="Last Name" autoComplete="family-name" required/>
                             </div>
                         </div>
                         <br />
                         <div className="email">
-                            <input ref={email} type="email" name="email" id="email" className="registerInputField inputAnimation OnFocus inputField" placeholder="Email" autoComplete="email" />
+                            <input ref={email} type="email" name="email" id="email" className="registerInputField inputAnimation OnFocus inputField" placeholder="Email" autoComplete="email" required/>
                         </div>
                         <br />
                         <div className="inputSmallWrapper">
                             <div className="password1">
-                                <input ref={password} type="password" name="password1" id="password1" className="registerInputField inputAnimation OnFocus inputField inputSmall" placeholder="Password" autoComplete="new-password" />
+                                <input ref={password} type="password" name="password1" id="password1" className="registerInputField inputAnimation OnFocus inputField inputSmall" placeholder="Password" autoComplete="new-password" required/>
                             </div>
                             <div className="password2">
-                                <input ref={confirmPassword} type="password" name="password2" id="password2" className="registerInputField inputAnimation OnFocus inputField inputSmall inputSmallLeft" placeholder="Confirm Password" autoComplete="new-password" />
+                                <input ref={confirmPassword} type="password" name="password2" id="password2" className="registerInputField inputAnimation OnFocus inputField inputSmall inputSmallLeft" placeholder="Confirm Password" autoComplete="new-password" onChange={() => checkPasswords()} required/>
                             </div>
                         </div>
                         <br />
@@ -99,8 +120,8 @@ export default function RegisterPage() {
                 </div>
             </section>
             <div className="blurBackground" style={{visibility: promptVisible ? 'visible' : 'hidden'}}>
-                <div className="confirmationPromptContainer" style={{transform: promptVisible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)'}}>
-                    <div className="confirmationPrompt">
+                <div className="promptContainer" style={{transform: promptVisible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)'}}>
+                    <div className="prompt confirmationPrompt">
                         <div className="closeWrapper" onClick={() => setPromptVisible(false)}>
                             <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#F6F6F3"><g id="SVGRepoBgCarrier" strokeWidth="0"></g><g id="SVGRepoTracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepoIconCarrier"> <g id="Menu / CloseLG"> <path id="Vector" d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" stroke="#F6F6F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
                         </div>
@@ -111,6 +132,32 @@ export default function RegisterPage() {
                         <br />
                         <br />
                         <input className="OnFocus button buttonAnimation" type="button" id="loginRedirect" value="Log in" onClick={() => navigate('/login/')}/>
+                    </div>
+                </div>
+            </div>
+            <div className="blurBackground" style={{visibility: errorPromptVisible ? 'visible' : 'hidden'}}>
+                <div className="promptContainer" style={{transform: errorPromptVisible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)'}}>
+                    <div className="prompt errorPrompt">
+                        <div className="closeWrapper" onClick={() => setErrorPromptVisible(false)}>
+                            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#F6F6F3"><g id="SVGRepoBgCarrier" strokeWidth="0"></g><g id="SVGRepoTracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepoIconCarrier"> <g id="Menu / CloseLG"> <path id="Vector" d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" stroke="#F6F6F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
+                        </div>
+                        <svg fill="#F6F6F3" height="64px" width="64px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 475.2 475.2" xmlSpace="preserve" stroke="#F6F6F3"><g id="SVGRepoBgCarrier" strokeWidth="0"></g><g id="SVGRepoTracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepoIconCarrier"> <g> <g> <path d="M405.6,69.6C360.7,24.7,301.1,0,237.6,0s-123.1,24.7-168,69.6S0,174.1,0,237.6s24.7,123.1,69.6,168s104.5,69.6,168,69.6 s123.1-24.7,168-69.6s69.6-104.5,69.6-168S450.5,114.5,405.6,69.6z M386.5,386.5c-39.8,39.8-92.7,61.7-148.9,61.7 s-109.1-21.9-148.9-61.7c-82.1-82.1-82.1-215.7,0-297.8C128.5,48.9,181.4,27,237.6,27s109.1,21.9,148.9,61.7 C468.6,170.8,468.6,304.4,386.5,386.5z"></path> <path d="M342.3,132.9c-5.3-5.3-13.8-5.3-19.1,0l-85.6,85.6L152,132.9c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1 l85.6,85.6l-85.6,85.6c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.6-85.6l85.6,85.6c2.6,2.6,6.1,4,9.5,4 c3.5,0,6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1l-85.4-85.6l85.6-85.6C347.6,146.7,347.6,138.2,342.3,132.9z"></path> </g> </g> </g></svg>
+                        <br />
+                        <br />
+                        <a className="promptTitle">Username Already Taken</a>
+                    </div>
+                </div>
+            </div>
+            <div className="blurBackground" style={{visibility: passwordErrorPromptVisible ? 'visible' : 'hidden'}}>
+                <div className="promptContainer" style={{transform: passwordErrorPromptVisible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)'}}>
+                    <div className="prompt errorPrompt">
+                        <div className="closeWrapper" onClick={() => setPasswordErrorPromptVisible(false)}>
+                            <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#F6F6F3"><g id="SVGRepoBgCarrier" strokeWidth="0"></g><g id="SVGRepoTracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepoIconCarrier"> <g id="Menu / CloseLG"> <path id="Vector" d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" stroke="#F6F6F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
+                        </div>
+                        <svg fill="#F6F6F3" height="64px" width="64px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 475.2 475.2" xmlSpace="preserve" stroke="#F6F6F3"><g id="SVGRepoBgCarrier" strokeWidth="0"></g><g id="SVGRepoTracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepoIconCarrier"> <g> <g> <path d="M405.6,69.6C360.7,24.7,301.1,0,237.6,0s-123.1,24.7-168,69.6S0,174.1,0,237.6s24.7,123.1,69.6,168s104.5,69.6,168,69.6 s123.1-24.7,168-69.6s69.6-104.5,69.6-168S450.5,114.5,405.6,69.6z M386.5,386.5c-39.8,39.8-92.7,61.7-148.9,61.7 s-109.1-21.9-148.9-61.7c-82.1-82.1-82.1-215.7,0-297.8C128.5,48.9,181.4,27,237.6,27s109.1,21.9,148.9,61.7 C468.6,170.8,468.6,304.4,386.5,386.5z"></path> <path d="M342.3,132.9c-5.3-5.3-13.8-5.3-19.1,0l-85.6,85.6L152,132.9c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1 l85.6,85.6l-85.6,85.6c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.6-85.6l85.6,85.6c2.6,2.6,6.1,4,9.5,4 c3.5,0,6.9-1.3,9.5-4c5.3-5.3,5.3-13.8,0-19.1l-85.4-85.6l85.6-85.6C347.6,146.7,347.6,138.2,342.3,132.9z"></path> </g> </g> </g></svg>
+                        <br />
+                        <br />
+                        <a className="promptTitle">Both Passwords Must Match</a>
                     </div>
                 </div>
             </div>
