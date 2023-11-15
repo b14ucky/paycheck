@@ -514,7 +514,7 @@ blockquote {
     transition: visibility 100ms ease;
 }
 
-.confirmationPromptContainer {
+.promptContainer {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -522,17 +522,31 @@ blockquote {
     transition: transform 200ms ease;
 }
 
-.confirmationPrompt {
+.prompt {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     place-items: center;
     width: 25rem;
-    height: 25rem;
     background: rgb(59 165 144 / .975);
     border-radius: 3rem;
     box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+}
+
+.confirmationPrompt {
+    background: rgb(59 165 144 / .975);
+    height: 25rem;
+}
+
+.errorPrompt {
+    background: rgb(196 74 74 / .975);
+    height: 15rem;
+}
+
+.errorPrompt > svg {
+    padding-top: 1em;
+    transform: scale(1.5);
 }
 
 .closeWrapper {
@@ -561,6 +575,13 @@ blockquote {
     text-align: center;
     font-weight: 500;
     letter-spacing: 3px;
+}
+
+.invalidField,
+.invalidField:hover,
+.invalidField:focus {
+    box-shadow: 0 0 15px 2px #C54B4B;
+    color: #C54B4B;
 }
 
 
