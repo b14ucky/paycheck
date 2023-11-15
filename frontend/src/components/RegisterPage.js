@@ -41,6 +41,7 @@ export default function RegisterPage() {
                 event.target.reset();
                 setPromptVisible(true);
             }).catch(error => {
+                console.log(error.response.data.InvalidPassword)
                 if (error.response.data.username) {
                     const usernameField = document.getElementById('username');
                     usernameField.classList.add('invalidField');

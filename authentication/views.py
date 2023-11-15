@@ -13,7 +13,9 @@ class UserRegisterView(APIView):
         serializer = UserRegisterSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.create(data)
-            if user:
+            if user['user'] is None:
+                return Response({'InvalidPassword': user['errors']}, status=status.HTTP_403_FORBIDDEN)
+            else:
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
