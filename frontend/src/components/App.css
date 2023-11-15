@@ -78,8 +78,10 @@ section {
 
 .main {
     flex: 85% 1 1;
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     max-width: 80%;
 }
 
@@ -282,12 +284,14 @@ input[type=radio] {
 
 .payslip {
     display: flex;
+    justify-content: space-around;
     padding: 1em;
     border-radius: 1em;
     -webkit-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
     -moz-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
     box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
     margin: 1.5em auto;
+    min-width: 40rem;
 }
 
 .payslipContent {

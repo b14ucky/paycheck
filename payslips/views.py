@@ -5,6 +5,11 @@ from rest_framework.response import Response
 from .serializers import PayslipSerializer, CreatePayslipSerializer
 from .models import Payslip
 from django.contrib.auth import get_user_model
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
 
 # Create your views here.
 class PayslipView(generics.ListAPIView):
@@ -85,7 +90,7 @@ class CreatePayslipView(APIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class GetPayslipView(APIView):
+class GetPayslipsView(APIView):
 
     serializer = PayslipSerializer
     lookupUrlKwarg = 'employeeId'
@@ -93,12 +98,49 @@ class GetPayslipView(APIView):
     def get(self, request):
         employeeId = request.GET.get(self.lookupUrlKwarg)
         if id != None:
-            payslip = Payslip.objects.filter(employeeId=employeeId)
-            if len(payslip) > 0:
-                data = []
-                for i in range(len(payslip)):
-                    data.append(PayslipSerializer(payslip[i]).data)
+            payslips = Payslip.objects.filter(employeeId=employeeId)
+            if len(payslips) > 0:
+                data = [PayslipSerializer(payslip).data for payslip in payslips]
                 return Response(data, status=status.HTTP_200_OK)
-            return Response({'Payslip Not Found': 'Invalid Payslip ID'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'Payslips Not Found': 'Invalid Employee ID'}, status=status.HTTP_404_NOT_FOUND)
         
         return Response({'Bad Request': 'ID parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class DownloadPayslipView(APIView):
+
+    def payslipToPDF(self, payslipData):
+        
+        buffer = io.BytesIO()
+
+        fileCanvas = canvas.Canvas(buffer, pagesize=letter, bottomup=0)
+
+        textObject = fileCanvas.beginText()
+        textObject.setTextOrigin(inch, inch)
+        textObject.setFont('Helvetica', 14)
+
+        lines = [
+            f"netPay: {payslipData['netPay']}",
+            f"grossPay: {payslipData['grossPay']}"
+        ]
+
+        for line in lines:
+            textObject.textLine(line)
+
+        fileCanvas.drawText(textObject)
+        fileCanvas.showPage()
+        fileCanvas.save()
+        buffer.seek(0)
+
+        return buffer
+
+    def post(self, request):
+
+        payslipId = request.data['id']
+        payslip = Payslip.objects.get(id=payslipId)
+        
+        payslipData = PayslipSerializer(payslip).data
+        buffer = self.payslipToPDF(payslipData)
+
+        return FileResponse(buffer, as_attachment=True, filename=f"payslip{payslipData['id']}.pdf")
+        
