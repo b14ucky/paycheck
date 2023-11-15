@@ -510,13 +510,15 @@ blockquote {
     inset: 0;
     background: rgb(124 123 121 / .35);
     visibility: hidden;
+    transition: visibility 100ms ease;
 }
 
 .confirmationPromptContainer {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 200ms ease;
 }
 
 .confirmationPrompt {
