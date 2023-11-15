@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import './App.css';
 import axios from 'axios';
 
+import FileDownload from 'js-file-download';
+
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -22,6 +24,7 @@ export default function PayslipsPage() {
         .then(response => {
             setFirstName(response.data.user.first_name);
             setLastName(response.data.user.last_name);
+            displayPayslips(response.data.user.id);
         })
         .catch(error => navigate('/login/'))
     }, []);
@@ -32,6 +35,54 @@ export default function PayslipsPage() {
         .then(response => {
             navigate('/login/');
         });
+    }
+
+    function downloadPDF(payslipID) {
+        client.post('/api/download-payslip/', {'id': payslipID}, {responseType: 'blob'})
+        .then(response => {
+            FileDownload(response.data, `payslip${payslipID}.pdf`)
+        })
+    }
+
+    function displayPayslips(userID) {
+        client.get(`/api/get-payslip/?employeeId=${userID}`)
+        .then(response => {
+            const payslips = response.data;
+            if (payslips) {
+                const payslipContainer = document.getElementsByClassName('main')[0];
+                for (const payslip of payslips) {
+                    payslipContainer.innerHTML += `
+                            <div class="payslip">
+                                <div class="payslipContent">
+                                    <div class="salariesContainer">
+                                        <div class="salaryText">
+                                            <a class="text">Net Pay:</a>
+                                            <a class="number">${payslip.netPay} zł</a>
+                                        </div>
+                                        <div class="salaryText">
+                                            <a class="text">Gross Pay:</a>
+                                            <a class="number">${payslip.grossPay} zł</a>
+                                        </div>
+                                    </div>
+                                    <div class="periodContainer">
+                                        <a class="text">Date Of Preparation: ${payslip.dateOfPreparation}</a>
+                                    </div>
+                                </div>
+                                <div class="downloadPDFButtonContainer">
+                                    <input type="button" value="Download PDF" id="payslip_${payslip.id}" class="button buttonAnimation OnFocus downloadPDFButton"/>
+                                </div>
+                            </div>
+                    `;
+                }
+
+                Array.from(document.getElementsByClassName('downloadPDFButton')).forEach(element => {
+                    element.addEventListener('click', event => {
+                        const payslipID = event.target.id.split('_')[1];
+                        downloadPDF(payslipID);
+                    })
+                })
+            }
+        })
     }
 
     return (
@@ -66,28 +117,7 @@ export default function PayslipsPage() {
                 <header className="title">
                     <a className="titleText">Payslips</a>
                 </header>
-                <div className="main">
-                    <div className="payslip">
-                        <div className="payslipContent">
-                            <div className="salariesContainer">
-                                <div className="salaryText">
-                                    <a className="text">Net Pay:</a>
-                                    <a className="number">1.00 zł</a>
-                                </div>
-                                <div className="salaryText">
-                                    <a className="text">Gross Pay:</a>
-                                    <a className="number">2876.86 zł</a>
-                                </div>
-                            </div>
-                            <div className="periodContainer">
-                                <a className="text">Period: 01-01-2000 - 01-02-2000</a>
-                            </div>
-                        </div>
-                        <div className="downloadPDFButtonContainer">
-                            <input type="button" value="Download PDF" className="button buttonAnimation OnFocus downloadPDFButton" />
-                        </div>
-                    </div>
-                </div>
+                <div className="main"></div>
             </section>
         </main>
     );
