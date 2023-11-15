@@ -57,7 +57,6 @@ export default function CalculatorPage() {
         })
         .catch(error => console.log(error))
     }
-
     function createSelectMenu() {
 
         const selectMenu = document.getElementById('selectMenu');
