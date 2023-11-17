@@ -10,9 +10,34 @@ class PayslipSerializer(serializers.ModelSerializer):
 class CreatePayslipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payslip
-        fields = ('netPay', 'grossPay', 'taxBasis', 'taxDue', 'taxPrepayment', 'pensionContribution', 'disabilityContribution', 'sicknessInsuranceContribution', 'socialInsuranceContribution', 'healthInsuranceContributionBasis', 'healthInsuranceContribution', 'costsOfGettingIncome')
+        fields = '__all__'
 
     def create(self, data, user):
-        payslip = Payslip.objects.create(employeeId=user, netPay=data['netPay'], grossPay=data['grossPay'], taxBasis=data['taxBasis'], taxDue=data['taxDue'], taxPrepayment=data['taxPrepayment'], pensionContribution=data['pensionContribution'], disabilityContribution=data['disabilityContribution'], sicknessInsuranceContribution=data['sicknessInsuranceContribution'], socialInsuranceContribution=data['socialInsuranceContribution'], healthInsuranceContributionBasis=data['healthInsuranceContributionBasis'], healthInsuranceContribution=data['healthInsuranceContribution'], costsOfGettingIncome=data['costsOfGettingIncome'])
+        payslip = Payslip.objects.create(
+            # employee fields
+            employeeId=user,
+            grossPay=data['grossPay'],
+            pensionContributionEmployee=data['pensionContributionEmployee'],
+            disabilityContributionEmployee=data['disabilityContributionEmployee'],
+            sicknessContributionEmployee=data['sicknessContributionEmployee'],
+            socialContributionsEmployee=data['socialContributionsEmployee'],
+            healthInsuranceBase=data['healthInsuranceBase'],
+            healthInsuranceContribution=data['healthInsuranceContribution'],
+            ppkContributionEmployee=data['ppkContributionEmployee'],
+            costsOfGettingIncome=data['costsOfGettingIncome'],
+            taxableIncome=data['taxableIncome'],
+            taxRate=data['taxRate'],
+            taxReductionAmount=data['taxReductionAmount'],
+            incomeTax=data['incomeTax'],
+            netPay=data['netPay'],
+            # employer fields
+            pensionContributionEmployer=data['pensionContributionEmployer'],
+            disabilityContributionEmployer=data['disabilityContributionEmployer'],
+            accidentContributionEmployer=data['accidentContributionEmployer'],
+            laborFundContributionEmployer=data['laborFundContributionEmployer'],
+            ppkContributionEmployer=data['ppkContributionEmployer'],
+            FGSPcontributionEmployer=data['FGSPcontributionEmployer'],
+            employerCosts=data['employerCosts']
+        )
         payslip.save()
         return payslip
