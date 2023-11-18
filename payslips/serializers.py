@@ -4,8 +4,7 @@ from .models import Payslip
 class PayslipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payslip
-        fields = ('id', 'employeeId', 'netPay', 'grossPay', 'taxBasis', 'taxDue', 'taxPrepayment', 'pensionContribution', 'disabilityContribution', 'sicknessInsuranceContribution', 'socialInsuranceContribution', 'healthInsuranceContributionBasis', 'healthInsuranceContribution', 'costsOfGettingIncome', 'dateOfPreparation')
-
+        fields = '__all__'
 
 class CreatePayslipSerializer(serializers.ModelSerializer):
     class Meta:

@@ -18,7 +18,7 @@ export default function CalculatorPage() {
     const [lastName, setLastName] = useState();
     const [promptVisible, setPromptVisible] = useState(false);
 
-    const numberOfHours = useRef(null);
+    const hoursWorked = useRef(null);
     const hourlyWage = useRef(null);
     const username = useRef(null);
     const costsOfGettingIncome = useRef(null);
@@ -46,7 +46,7 @@ export default function CalculatorPage() {
         client.post(
             '/api/create-payslip/',
             {
-                numberOfHours: numberOfHours.current.value,
+                hoursWorked: hoursWorked.current.value,
                 hourlyWage: hourlyWage.current.value,
                 username: username.current.value,
                 costsOfGettingIncome: costsOfGettingIncome.current.value
@@ -112,8 +112,8 @@ export default function CalculatorPage() {
                             </div>
                         </div>
                         <br /><br />
-                        <div className="numberOfHours">
-                            <input type="number" name="numberOfHours" id="numberOfHours" placeholder="Number Of Hours" step="0.01" className="inputAnimation OnFocus inputField" ref={numberOfHours}/>
+                        <div className="hoursWorked">
+                            <input type="number" name="hoursWorked" id="hoursWorked" placeholder="Hours Worked" step="0.01" className="inputAnimation OnFocus inputField" ref={hoursWorked}/>
                         </div>
                         <br /><br />
                         <div className="hourlyWage">

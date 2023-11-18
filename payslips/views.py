@@ -6,19 +6,17 @@ from .serializers import PayslipSerializer, CreatePayslipSerializer
 from .models import Payslip
 from django.contrib.auth import get_user_model
 from django.http import FileResponse
-import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
-from .generatePayslip import calculatePayslip
+from .generatePayslip import calculatePayslip, createPayslipPDF
+from authentication import serializers
 
-# Create your views here.
+userModel = get_user_model()
 class PayslipView(generics.ListAPIView):
     queryset = Payslip.objects.all()
     serializer_class = PayslipSerializer
 
 class CreatePayslipView(APIView):
-
-    userModel = get_user_model()
 
     def post(self, request):
 
@@ -30,7 +28,7 @@ class CreatePayslipView(APIView):
         if not user:
             return Response({'User Not Found: Invalid User Username'}, status=status.HTTP_404_NOT_FOUND)
 
-        data = calculatePayslip(data['numberOfHours'], data['hourlyWage'], data['costsOfGettingIncome'])
+        data = calculatePayslip(data['hoursWorked'], data['hourlyWage'], data['costsOfGettingIncome'])
 
         data.update({'employeeId': user.id})
         serializer = CreatePayslipSerializer(data=data)
@@ -60,38 +58,16 @@ class GetPayslipsView(APIView):
 
 class DownloadPayslipView(APIView):
 
-    def payslipToPDF(self, payslipData):
-        
-        buffer = io.BytesIO()
-
-        fileCanvas = canvas.Canvas(buffer, bottomup=0)
-
-        textObject = fileCanvas.beginText()
-        textObject.setTextOrigin(inch, inch)
-        textObject.setFont('Helvetica', 14)
-
-        lines = [
-            f"netPay: {payslipData['netPay']}",
-            f"grossPay: {payslipData['grossPay']}"
-        ]
-
-        for line in lines:
-            textObject.textLine(line)
-
-        fileCanvas.drawText(textObject)
-        fileCanvas.showPage()
-        fileCanvas.save()
-        buffer.seek(0)
-
-        return buffer
-
     def post(self, request):
 
         payslipId = request.data['id']
         payslip = Payslip.objects.get(id=payslipId)
-        
         payslipData = PayslipSerializer(payslip).data
-        buffer = self.payslipToPDF(payslipData)
+        
+        employee = userModel.objects.get(id=payslipData['employeeId'])
+        employeeData = serializers.UserSerializer(employee).data
+
+        buffer = createPayslipPDF(payslipData, employeeData)
 
         return FileResponse(buffer, as_attachment=True, filename=f"payslip{payslipData['id']}.pdf")
         
