@@ -6,82 +6,31 @@ from .serializers import PayslipSerializer, CreatePayslipSerializer
 from .models import Payslip
 from django.contrib.auth import get_user_model
 from django.http import FileResponse
-import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
-from reportlab.lib.pagesizes import letter
+from .generatePayslip import calculatePayslip, createPayslipPDF
+from authentication import serializers
 
-# Create your views here.
+userModel = get_user_model()
 class PayslipView(generics.ListAPIView):
     queryset = Payslip.objects.all()
     serializer_class = PayslipSerializer
 
 class CreatePayslipView(APIView):
 
-    userModel = get_user_model()
-
-    def calculate(self, numberOfHours, hourlyWage, costsOfGettingIncome):
-        numberOfHours = int(numberOfHours)
-        hourlyWage = int(hourlyWage)
-        costsOfGettingIncome = int(costsOfGettingIncome)
-
-        grossPay = numberOfHours * hourlyWage
-
-        # contributions
-        pensionContribution = grossPay * 0.0976
-        pensionContribution = round(pensionContribution, 2)
-        disabilityContribution = grossPay * 0.015
-        disabilityContribution = round(disabilityContribution, 2)
-        sicknessInsuranceContribution = grossPay * 0.0245
-        sicknessInsuranceContribution = round(sicknessInsuranceContribution, 2)
-        socialInsuranceContribution = pensionContribution + disabilityContribution + sicknessInsuranceContribution
-        socialInsuranceContribution = round(socialInsuranceContribution, 2)
-
-        # health insurance contribution
-        healthInsuranceContributionBasis = grossPay - socialInsuranceContribution
-        healthInsuranceContribution = healthInsuranceContributionBasis * 0.09
-        healthInsuranceContribution = round(healthInsuranceContribution, 2)
-
-        # taxes
-        taxBasis = grossPay - socialInsuranceContribution - costsOfGettingIncome
-        taxBasis = round(taxBasis)
-        taxDue = taxBasis * 0.12
-        taxDue = round(taxDue, 2)
-        taxPrepayment = taxDue - 300   # some costs that should be changable but for now I am to lazy to do this 
-        taxPrepayment = round(taxPrepayment)
-
-        netPay = grossPay - socialInsuranceContribution - healthInsuranceContribution - taxPrepayment
-        netPay = round(netPay, 2)
-        grossPay = round(grossPay, 2)
-
-        data = {
-            'grossPay': grossPay,
-            'pensionContribution': pensionContribution,
-            'disabilityContribution': disabilityContribution,
-            'sicknessInsuranceContribution': sicknessInsuranceContribution,
-            'socialInsuranceContribution': socialInsuranceContribution,
-            'healthInsuranceContributionBasis': healthInsuranceContributionBasis,
-            'healthInsuranceContribution': healthInsuranceContribution,
-            'costsOfGettingIncome': costsOfGettingIncome,
-            'taxBasis': taxBasis,
-            'taxDue': taxDue,
-            'taxPrepayment': taxPrepayment,
-            'netPay': netPay
-        }
-
-        return data
-
     def post(self, request):
 
         data = request.data
         username = data['username']
         user = self.userModel.objects.get(username=username)
-
-        data = self.calculate(data['numberOfHours'], data['hourlyWage'], data['costsOfGettingIncome'])
+        print(user.id)
 
         if not user:
             return Response({'User Not Found: Invalid User Username'}, status=status.HTTP_404_NOT_FOUND)
-        
+
+        data = calculatePayslip(data['hoursWorked'], data['hourlyWage'], data['costsOfGettingIncome'])
+
+        data.update({'employeeId': user.id})
         serializer = CreatePayslipSerializer(data=data)
         
         if serializer.is_valid(raise_exception=True):
@@ -109,38 +58,16 @@ class GetPayslipsView(APIView):
 
 class DownloadPayslipView(APIView):
 
-    def payslipToPDF(self, payslipData):
-        
-        buffer = io.BytesIO()
-
-        fileCanvas = canvas.Canvas(buffer, pagesize=letter, bottomup=0)
-
-        textObject = fileCanvas.beginText()
-        textObject.setTextOrigin(inch, inch)
-        textObject.setFont('Helvetica', 14)
-
-        lines = [
-            f"netPay: {payslipData['netPay']}",
-            f"grossPay: {payslipData['grossPay']}"
-        ]
-
-        for line in lines:
-            textObject.textLine(line)
-
-        fileCanvas.drawText(textObject)
-        fileCanvas.showPage()
-        fileCanvas.save()
-        buffer.seek(0)
-
-        return buffer
-
     def post(self, request):
 
         payslipId = request.data['id']
         payslip = Payslip.objects.get(id=payslipId)
-        
         payslipData = PayslipSerializer(payslip).data
-        buffer = self.payslipToPDF(payslipData)
+        
+        employee = userModel.objects.get(id=payslipData['employeeId'])
+        employeeData = serializers.UserSerializer(employee).data
+
+        buffer = createPayslipPDF(payslipData, employeeData)
 
         return FileResponse(buffer, as_attachment=True, filename=f"payslip{payslipData['id']}.pdf")
         
