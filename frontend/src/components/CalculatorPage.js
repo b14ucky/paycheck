@@ -57,6 +57,7 @@ export default function CalculatorPage() {
         })
         .catch(error => console.log(error))
     }
+    
     function createSelectMenu() {
 
         const selectMenu = document.getElementById('selectMenu');
@@ -92,6 +93,10 @@ export default function CalculatorPage() {
                     <br /><br />
                     <div className="payslipsButtonContainer">
                         <input type="button" value="Payslips" className="payslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/payslips/')}/>
+                    </div>
+                    <br /><br />
+                    <div className="managePayslipsButtonContainer">
+                        <input type="button" value="Manage Payslips" className="payslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/manage-payslips/')} />
                     </div>
                     <br /><br />
                     <div className="logoutButtonContainer">

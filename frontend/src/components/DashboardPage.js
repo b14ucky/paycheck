@@ -57,6 +57,10 @@ export default function DashboardPage() {
                         <input type="button" value="Payslips" className="payslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/payslips/')} />
                     </div>
                     <br /><br />
+                    <div className="managePayslipsButtonContainer">
+                        <input type="button" value="Manage Payslips" className="payslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/manage-payslips/')} />
+                    </div>
+                    <br /><br />
                     <div className="logoutButtonContainer">
                         <input type="button" value="Log out" className="logoutButton button buttonAnimation OnFocus" onClick={event => handleLogout(event)} />
                     </div>

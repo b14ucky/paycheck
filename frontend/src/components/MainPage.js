@@ -6,6 +6,7 @@ import DashboardPage from './DashboardPage';
 import CalculatorPage from './CalculatorPage';
 import PayslipsPage from './PayslipsPage';
 import RedirectPage from './RedirectPage';
+import ManagePayslipsPage from './ManagePayslipsPage';
 
 
 export default function MainPage() {
@@ -18,6 +19,7 @@ export default function MainPage() {
                     <Route path='/dashboard' element={<DashboardPage />} />
                     <Route path='/calculator' element={<CalculatorPage />} />
                     <Route path='/payslips' element={<PayslipsPage />} />
+                    <Route path='/manage-payslips' element={<ManagePayslipsPage />} />
                 </Routes>
         </Router>
     );
