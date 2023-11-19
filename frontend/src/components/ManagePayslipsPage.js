@@ -53,6 +53,14 @@ export default function ManagePayslipsPage() {
         });
     }
 
+    function handleLogout(event) {
+        event.preventDefault();
+        client.post('/auth/logout')
+        .then(response => {
+            navigate('/login/');
+        });
+    }
+
     return (
         <main>
             <section className="navbar">
