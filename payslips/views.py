@@ -22,8 +22,8 @@ class CreatePayslipView(APIView):
 
         data = request.data
         username = data['username']
+
         user = userModel.objects.get(username=username)
-        print(user.id)
 
         if not user:
             return Response({'User Not Found: Invalid User Username'}, status=status.HTTP_404_NOT_FOUND)
