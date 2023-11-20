@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './App.css';
 import axios from 'axios';
-
-import FileDownload from 'js-file-download';
-
+import Payslip from './Payslip.js';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -18,6 +16,7 @@ export default function PayslipsPage() {
 
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
+    const [payslips, setPayslips] = useState([]);
 
     useEffect(() => {
         client.get('/auth/user')
@@ -37,52 +36,13 @@ export default function PayslipsPage() {
         });
     }
 
-    function downloadPDF(payslipID) {
-        client.post('/api/download-payslip/', {'id': payslipID}, {responseType: 'blob'})
-        .then(response => {
-            FileDownload(response.data, `payslip${payslipID}.pdf`)
-        })
-    }
-
-    function displayPayslips(userID) {
-        client.get(`/api/get-payslip/?employeeId=${userID}`)
-        .then(response => {
-            const payslips = response.data;
-            if (payslips) {
-                const payslipContainer = document.getElementsByClassName('main')[0];
-                for (const payslip of payslips) {
-                    payslipContainer.innerHTML += `
-                            <div class="payslip">
-                                <div class="payslipContent">
-                                    <div class="salariesContainer">
-                                        <div class="salaryText">
-                                            <a class="text">Net Pay:</a>
-                                            <a class="number">${payslip.netPay} PLN</a>
-                                        </div>
-                                        <div class="salaryText">
-                                            <a class="text">Gross Pay:</a>
-                                            <a class="number">${payslip.grossPay} PLN</a>
-                                        </div>
-                                    </div>
-                                    <div class="periodContainer">
-                                        <a class="text">Date Of Preparation: ${payslip.dateOfPreparation}</a>
-                                    </div>
-                                </div>
-                                <div class="downloadPDFButtonContainer">
-                                    <input type="button" value="Download PDF" id="payslip_${payslip.id}" class="button buttonAnimation OnFocus downloadPDFButton"/>
-                                </div>
-                            </div>
-                    `;
-                }
-
-                Array.from(document.getElementsByClassName('downloadPDFButton')).forEach(element => {
-                    element.addEventListener('click', event => {
-                        const payslipID = event.target.id.split('_')[1];
-                        downloadPDF(payslipID);
-                    })
-                })
-            }
-        })
+    function displayPayslips(employeeId) {
+        client.get(`/api/get-payslip/?employeeId=${employeeId}`)
+            .then(response => {
+                if (response.data === '') setPayslips([{id: null}]);
+                else setPayslips(response.data);
+            })
+            .catch(error => console.log(error));
     }
 
     return (
@@ -121,7 +81,9 @@ export default function PayslipsPage() {
                 <header className="title">
                     <a className="titleText">Payslips</a>
                 </header>
-                <div className="main"></div>
+                <div className="main">
+                    {payslips.map(payslip => (<Payslip key={payslip.id} payslip={payslip} />))}
+                </div>
             </section>
         </main>
     );

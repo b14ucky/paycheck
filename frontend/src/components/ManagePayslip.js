@@ -20,7 +20,7 @@ export default function ManagePayslipsList(props) {
         return (
             <div className="payslipContainer">
                 <div className="employeeName">
-                    <a className="text">Employee: {props.payslip.employeeId}</a>
+                    <a className="text">Payslip ID: {props.payslip.id}</a>
                 </div>
                 <div className="managePayslip">
                     <div className="payslipContent">
@@ -39,11 +39,8 @@ export default function ManagePayslipsList(props) {
                         </div>
                     </div>
                     <div className="buttonsContainer">
-                        <div className="editPayslipButtonContainer">
-                            <input type="button" value="Edit" id="payslip_${payslip.id}" className="button buttonAnimation OnFocus editPayslipButton" />
-                        </div>
                         <div className="deletePayslipButtonContainer">
-                            <input type="button" value="Delete" id="payslip_${payslip.id}" className="button buttonAnimation OnFocus deletePayslipButton" onClick={() => handleDelete(props.payslip.id)} />
+                            <input type="button" value="Delete" className="button buttonAnimation OnFocus deletePayslipButton" onClick={() => handleDelete(props.payslip.id)} />
                         </div>
                     </div>
                 </div>
