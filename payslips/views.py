@@ -22,8 +22,8 @@ class CreatePayslipView(APIView):
 
         data = request.data
         username = data['username']
-        user = self.userModel.objects.get(username=username)
-        print(user.id)
+
+        user = userModel.objects.get(username=username)
 
         if not user:
             return Response({'User Not Found: Invalid User Username'}, status=status.HTTP_404_NOT_FOUND)
@@ -51,7 +51,9 @@ class GetPayslipsView(APIView):
             if len(payslips) > 0:
                 data = [PayslipSerializer(payslip).data for payslip in payslips]
                 return Response(data, status=status.HTTP_200_OK)
-            return Response({'Payslips Not Found': 'Invalid Employee ID'}, status=status.HTTP_404_NOT_FOUND)
+            elif len(payslips) == 0:
+                return Response({"Payslips Don't Exist": "This employee dosen't have any payslips yet"}, status=status.HTTP_204_NO_CONTENT)
+            return Response({'Employee Not Found': 'Invalid Employee ID'}, status=status.HTTP_404_NOT_FOUND)
         
         return Response({'Bad Request': 'ID parameter not found in request'}, status=status.HTTP_400_BAD_REQUEST)
     
@@ -70,4 +72,15 @@ class DownloadPayslipView(APIView):
         buffer = createPayslipPDF(payslipData, employeeData)
 
         return FileResponse(buffer, as_attachment=True, filename=f"payslip{payslipData['id']}.pdf")
+    
+class DeletePayslipView(APIView):
+
+    def post(self, request):
+
+        payslipId = request.data['id']
+        payslip = Payslip.objects.get(id=payslipId)
+        if payslip:
+            payslip.delete()
+            return Response(status=status.HTTP_200_OK)
+        return Response({'Payslip Not Found': 'Invalid Payslip ID'}, status=status.HTTP_404_NOT_FOUND)
         

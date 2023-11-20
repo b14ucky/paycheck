@@ -588,6 +588,66 @@ blockquote {
     color: #C54B4B;
 }
 
+.buttonsContainer {
+    display: grid;
+    place-items: center;
+}
+
+.editPayslipButton {
+    color: #F6F6F3;
+    background: #3BA590;
+}
+
+.deletePayslipButton {
+    color: #F6F6F3;
+    background: #C54B4B;
+}
+
+.managePayslip {
+    display: flex;
+    justify-content: space-between;
+}
+
+.payslipContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    border-radius: 1em;
+    -webkit-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    margin: 1.5em auto;
+    min-width: 40rem;
+}
+
+.employeeName {
+    text-align: center;
+    padding-bottom: .5em;
+}
+
+.employeeName {
+    .text {
+        font-size: 1.25rem;
+    }
+}
+
+.searchContainer {
+    transform: scale(.35);
+    cursor: pointer;
+    transition: all 150ms ease;
+    border-radius: 100%;
+    padding: 1.75em;
+    margin-left: -1.75em;
+}
+
+.searchContainer:active {
+    transform: scale(.3);
+}
+
+.searchContainer:hover {
+    background: rgb(124 123 121 / .15);
+}
+
 
 @media (max-width: 1000px) {
     main {

@@ -8,4 +8,5 @@ urlpatterns = [
     path('dashboard/', index),
     path('calculator/', index),
     path('payslips/', index),
+    path('manage-payslips/', index),
 ]

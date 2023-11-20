@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './App.css';
 import axios from 'axios';
-
-import FileDownload from 'js-file-download';
-
+import Payslip from './Payslip.js';
+import Navbar from "./Navbar.js";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -18,6 +17,7 @@ export default function PayslipsPage() {
 
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
+    const [payslips, setPayslips] = useState([]);
 
     useEffect(() => {
         client.get('/auth/user')
@@ -37,87 +37,25 @@ export default function PayslipsPage() {
         });
     }
 
-    function downloadPDF(payslipID) {
-        client.post('/api/download-payslip/', {'id': payslipID}, {responseType: 'blob'})
-        .then(response => {
-            FileDownload(response.data, `payslip${payslipID}.pdf`)
-        })
-    }
-
-    function displayPayslips(userID) {
-        client.get(`/api/get-payslip/?employeeId=${userID}`)
-        .then(response => {
-            const payslips = response.data;
-            if (payslips) {
-                const payslipContainer = document.getElementsByClassName('main')[0];
-                for (const payslip of payslips) {
-                    payslipContainer.innerHTML += `
-                            <div class="payslip">
-                                <div class="payslipContent">
-                                    <div class="salariesContainer">
-                                        <div class="salaryText">
-                                            <a class="text">Net Pay:</a>
-                                            <a class="number">${payslip.netPay} zł</a>
-                                        </div>
-                                        <div class="salaryText">
-                                            <a class="text">Gross Pay:</a>
-                                            <a class="number">${payslip.grossPay} zł</a>
-                                        </div>
-                                    </div>
-                                    <div class="periodContainer">
-                                        <a class="text">Date Of Preparation: ${payslip.dateOfPreparation}</a>
-                                    </div>
-                                </div>
-                                <div class="downloadPDFButtonContainer">
-                                    <input type="button" value="Download PDF" id="payslip_${payslip.id}" class="button buttonAnimation OnFocus downloadPDFButton"/>
-                                </div>
-                            </div>
-                    `;
-                }
-
-                Array.from(document.getElementsByClassName('downloadPDFButton')).forEach(element => {
-                    element.addEventListener('click', event => {
-                        const payslipID = event.target.id.split('_')[1];
-                        downloadPDF(payslipID);
-                    })
-                })
-            }
-        })
+    function displayPayslips(employeeId) {
+        client.get(`/api/get-payslip/?employeeId=${employeeId}`)
+            .then(response => {
+                if (response.data === '') setPayslips([{id: null}]);
+                else setPayslips(response.data);
+            })
+            .catch(error => console.log(error));
     }
 
     return (
         <main>
-            <section className="navbar">
-                <div className="iconWrapper">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#F6F6F3"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3.46447 20.5355C4.92893 22 7.28595 22 12 22C16.714 22 19.0711 22 20.5355 20.5355C22 19.0711 22 16.714 22 12C22 7.28595 22 4.92893 20.5355 3.46447C19.0711 2 16.714 2 12 2C7.28595 2 4.92893 2 3.46447 3.46447C2 4.92893 2 7.28595 2 12C2 16.714 2 19.0711 3.46447 20.5355Z" stroke="#F6F6F3" strokeWidth="1.5"></path> <path d="M18 8.49998H14M18 14.5H14M18 17.5H14M10 8.49999H8M8 8.49999L6 8.49999M8 8.49999L8 6.49998M8 8.49999L8 10.5M9.5 14.5L8.00001 16M8.00001 16L6.50001 17.5M8.00001 16L6.5 14.5M8.00001 16L9.49999 17.5" stroke="#F6F6F3" strokeWidth="1.5" strokeLinecap="round"></path> </g></svg>
-                </div>
-                <div className="buttonsWrapper">
-                    <div className="lineWrapper">
-                        <hr className="line" />
-                    </div>
-                    <br />
-                    <div className="homeButtonContainer">
-                        <input type="button" value="Dashboard" className="dashboardButton button buttonAnimation OnFocus" onClick={() => navigate('/dashboard/')}/>
-                    </div>
-                    <br /><br />
-                    <div className="calculatorButtonContainer">
-                        <input type="button" value="Calculator" className="calculatorButton button buttonAnimation OnFocus" onClick={() => navigate('/calculator/')} />
-                    </div>
-                    <br /><br />
-                    <div className="payslipsButtonContainer">
-                        <input type="button" value="Payslips" className="payslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/payslips/')}/>
-                    </div>
-                    <br /><br />
-                    <div className="logoutButtonContainer">
-                        <input type="button" value="Log out" className="logoutButton button buttonAnimation OnFocus" onClick={event => handleLogout(event)} />
-                    </div>
-                </div>
-            </section>
+            <Navbar />
             <section className="mainWrapper">
                 <header className="title">
                     <a className="titleText">Payslips</a>
                 </header>
-                <div className="main"></div>
+                <div className="main">
+                    {payslips.map(payslip => (<Payslip key={payslip.id} payslip={payslip} />))}
+                </div>
             </section>
         </main>
     );
