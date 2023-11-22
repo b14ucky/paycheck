@@ -62,8 +62,9 @@ class CurrentUserView(APIView):
     authentication_classes = (SessionAuthentication,)
 
     def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+        userData = UserSerializer(request.user).data
+        userData.update({'groups': [group for group in GroupSerializer(request.user.groups.all(), many=True).data]})
+        return Response({'user': userData}, status=status.HTTP_200_OK)
     
 
 class AddUserToGroupView(APIView):
