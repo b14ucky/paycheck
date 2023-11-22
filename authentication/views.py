@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserLoginSerializer, UserRegisterSerializer, UserSerializer
+from .serializers import UserLoginSerializer, UserRegisterSerializer, UserSerializer, GroupSerializer
 
 from rest_framework import permissions, status
 
@@ -47,7 +47,11 @@ class UsersView(APIView):
     authentication_classes = (SessionAuthentication,)
 
     def get(self, request):
-        users = [UserSerializer(user).data for user in userModel.objects.all()]
+        users = []
+        for user in userModel.objects.all():
+            userData = UserSerializer(user).data
+            userData.update({'groups': [group for group in GroupSerializer(user.groups.all(), many=True).data]})
+            users.append(userData)
 
         if len(users) > 0:
             return Response({'users': users}, status=status.HTTP_200_OK)
