@@ -27,19 +27,22 @@ export default function CalculatorPage() {
     useEffect(() => {
         client.get('/auth/user')
         .then(response => {
+            if (!handlePermissions(response.data.user)) navigate('/dashboard/')
             setFirstName(response.data.user.first_name);
             setLastName(response.data.user.last_name);
         })
-        .catch(error => navigate('/login/'))
+        .catch(error => console.log(error))
         createSelectMenu();
     }, []);
 
-    function handleLogout(event) {
-        event.preventDefault();
-        client.post('/auth/logout')
-        .then(response => {
-            navigate('/login/');
-        });
+    function handlePermissions(user) {
+        if (!user.groups.length) return false;
+        if (user.groups.length) {
+            for (const group of user.groups) {
+                if (group.name === "accountant" || group.name === "admin") return true;
+            }
+        }
+        return true;
     }
 
     function handleSubmit(event) {

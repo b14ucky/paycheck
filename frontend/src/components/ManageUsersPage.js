@@ -21,12 +21,23 @@ export default function ManageUsersPage() {
     useEffect(() => {
         client.get('/auth/user')
         .then(response => {
+            if (!handlePermissions(response.data.user)) navigate('/dashboard/')
             setFirstName(response.data.user.first_name);
             setLastName(response.data.user.last_name);
             createSelectMenu();
         })
         .catch(error => navigate('/login/'))
     }, []);
+
+    function handlePermissions(user) {
+        if (!user.groups.length) return false;
+        if (user.groups.length) {
+            for (const group of user.groups) {
+                if (group.name === "admin") return true;
+            }
+        }
+        return true;
+    }
 
     useEffect(() => {
         displayInfo(employeeId);
