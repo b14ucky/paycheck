@@ -648,6 +648,55 @@ blockquote {
     background: rgb(124 123 121 / .15);
 }
 
+.userContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 40rem;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    border-radius: 1em;
+    -webkit-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+
+    .userInfoContainer {
+        .text {
+            .biggerText {
+                font-size: 1.25rem;
+                font-weight: 500;
+            }
+            color: #3BA590;
+            font-weight: 200;
+        }
+    }
+
+    .userGroupsContainer {
+        .label {
+            line-height: 1.75em;
+        }
+
+        .text {
+            color: #3BA590;
+        }
+    }
+
+    .buttonsContainer {
+        .saveButtonContainer {
+            .saveButton {
+                background: #3BA590;
+                color: #F6F6F3;
+            }
+        }
+        .deleteButtonContainer {
+            .deleteButton {
+                background: #C54B4B;
+                color: #F6F6F3;
+            }
+        }
+    }
+}
+
 
 @media (max-width: 1000px) {
     main {

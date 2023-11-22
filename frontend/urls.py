@@ -9,4 +9,5 @@ urlpatterns = [
     path('calculator/', index),
     path('payslips/', index),
     path('manage-payslips/', index),
+    path('manage-users/', index),
 ]

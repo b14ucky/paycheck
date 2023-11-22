@@ -40,7 +40,11 @@ export default function Navbar() {
                 </div>
                 <br /><br />
                 <div className="managePayslipsButtonContainer">
-                    <input type="button" value="Manage Payslips" className="payslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/manage-payslips/')} />
+                    <input type="button" value="Manage Payslips" className="managePayslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/manage-payslips/')} />
+                </div>
+                <br /><br />
+                <div className="manageUsersButtonContainer">
+                    <input type="button" value="Manage Users" className="manageUsersButton button buttonAnimation OnFocus" onClick={() => navigate('/manage-users/')} />
                 </div>
                 <br /><br />
                 <div className="logoutButtonContainer">
