@@ -1,13 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import './App.css';
 import axios from 'axios';
 import Navbar from "./Navbar";
-
-
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withCredentials = true;
 
 const client = axios.create();
 
@@ -74,7 +68,6 @@ export default function CalculatorPage() {
             }
         });
     }
-
 
     return (
         <main>

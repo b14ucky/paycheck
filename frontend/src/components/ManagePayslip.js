@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import './App.css';
+
+const client = axios.create();
 
 export default function ManagePayslipsList(props) {
-
-    const client = axios.create();
     
     const [shouldRender, setShouldRender] = useState(true);
     

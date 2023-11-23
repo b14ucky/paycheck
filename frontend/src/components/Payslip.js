@@ -1,12 +1,11 @@
 import React from "react";
 import axios from 'axios';
-import './App.css';
 
 import FileDownload from 'js-file-download';
 
-export default function ManagePayslipsList(props) {
+const client = axios.create();
 
-    const client = axios.create();
+export default function ManagePayslipsList(props) {
         
     function handleDownload(payslipId) {
         client.post('/api/download-payslip/', {'id': payslipId}, {responseType: 'blob'})

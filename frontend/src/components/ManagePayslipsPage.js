@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import './App.css';
 import axios from 'axios';
 import ManagePayslip from './ManagePayslip';
 import Navbar from "./Navbar";
 
-export default function ManagePayslipsPage() {
+const client = axios.create();
 
-    const client = axios.create();
+export default function ManagePayslipsPage() {
 
     const navigate = useNavigate();
 
@@ -62,14 +61,6 @@ export default function ManagePayslipsPage() {
             for (const user of users) {
                 selectMenu.innerHTML += `<option value="${user.id}">${user.first_name} ${user.last_name}</option>`;
             }
-        });
-    }
-
-    function handleLogout(event) {
-        event.preventDefault();
-        client.post('/auth/logout')
-        .then(response => {
-            navigate('/login/');
         });
     }
 

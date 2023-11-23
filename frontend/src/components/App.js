@@ -1,7 +1,12 @@
 import { createRoot } from 'react-dom/client';
 import React from 'react';
 import MainPage from './MainPage';
+import './App.css';
+import axios from 'axios';
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
 
 const appContainer = document.getElementById('app');
 const root = createRoot(appContainer);

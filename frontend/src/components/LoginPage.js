@@ -1,11 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from 'react-router-dom'
-import "./App.css";
 import axios from 'axios';
-
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withCredentials = true;
 
 const client = axios.create();
 
@@ -13,7 +8,6 @@ export default function LoginPage() {
         
     const navigate = useNavigate();
 
-    const [currentUser, setCurrentUser] = useState();
     const username = useRef(null);
     const password = useRef(null);
 
@@ -26,7 +20,6 @@ export default function LoginPage() {
                 password: password.current.value
             }
         ).then(response => {
-            setCurrentUser(true);
             event.target.reset();
             navigate('/dashboard/')
         })
