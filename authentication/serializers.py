@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 import re
 
@@ -50,3 +51,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model =  userModel
         fields = ('id', 'username', 'email', 'first_name', 'last_name')
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('name',)

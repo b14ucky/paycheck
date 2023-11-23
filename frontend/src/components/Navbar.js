@@ -1,7 +1,11 @@
-import React from 'react';
-import './App.js';
+import React, { useState, useEffect } from 'react';
+import './App.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import CalculatorButton from './CalculatorButton';
+import PayslipsButton from './PayslipsButton';
+import ManagePayslipsButton from './ManagePayslipsButton';
+import ManageUsersButton from './ManageUsersButton';
 
 const client = axios.create();
 
@@ -17,6 +21,49 @@ export default function Navbar() {
         });
     }
 
+    const [user, setUser] = useState();
+
+    useEffect(() => {
+        client.get('/auth/user')
+        .then(response => {
+            setUser(response.data.user);
+        })
+        .catch(error => navigate('/login/'))
+    }, []);
+
+    function isEmployee(user) {
+        if (user !== undefined) {
+            if (user.groups.length) {
+                for (const group of user.groups) {
+                    if (group.name === "employee") return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function isAccountant(user) {
+        if (user !== undefined) {
+            if (user.groups.length) {
+                for (const group of user.groups) {
+                    if (group.name === "accountant") return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    function isAdmin(user) {
+        if (user !== undefined) {
+            if (user.groups.length) {
+                for (const group of user.groups) {
+                    if (group.name === "admin") return true;
+                }
+            }
+        }
+        return false;
+    }
+
     return (
         <section className="navbar">
             <div className="iconWrapper">
@@ -28,21 +75,12 @@ export default function Navbar() {
                 </div>
                 <br />
                 <div className="homeButtonContainer">
-                    <input type="button" value="Dashboard" className="dashboardButton button buttonAnimation OnFocus" onClick={() => navigate('/dashboard/')}/>
+                    <input type="button" value="Dashboard" className="dashboardButton button buttonAnimation OnFocus" onClick={() => navigate('/dashboard/')} />
                 </div>
-                <br /><br />
-                <div className="calculatorButtonContainer">
-                    <input type="button" value="Calculator" className="calculatorButton button buttonAnimation OnFocus" onClick={() => navigate('/calculator/')} />
-                </div>
-                <br /><br />
-                <div className="payslipsButtonContainer">
-                    <input type="button" value="Payslips" className="payslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/payslips/')} />
-                </div>
-                <br /><br />
-                <div className="managePayslipsButtonContainer">
-                    <input type="button" value="Manage Payslips" className="payslipsButton button buttonAnimation OnFocus" onClick={() => navigate('/manage-payslips/')} />
-                </div>
-                <br /><br />
+                <PayslipsButton isEmployee={isEmployee(user)} isAccountant={isAccountant(user)} isAdmin={isAdmin(user)} />
+                <CalculatorButton isAccountant={isAccountant(user)} isAdmin={isAdmin(user)} />
+                <ManagePayslipsButton isAccountant={isAccountant(user)} isAdmin={isAdmin(user)} />
+                <ManageUsersButton isAdmin={isAdmin(user)} />
                 <div className="logoutButtonContainer">
                     <input type="button" value="Log out" className="logoutButton button buttonAnimation OnFocus" onClick={event => handleLogout(event)} />
                 </div>
