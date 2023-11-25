@@ -8,8 +8,9 @@ from django.contrib.auth import get_user_model
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
-from .generatePayslip import calculatePayslip, createPayslipPDF
+from .generatePayslip import PayslipGenerator
 from authentication import serializers
+from dataclasses import asdict
 
 userModel = get_user_model()
 class PayslipView(generics.ListAPIView):
@@ -28,7 +29,8 @@ class CreatePayslipView(APIView):
         if not user:
             return Response({'User Not Found: Invalid User Username'}, status=status.HTTP_404_NOT_FOUND)
 
-        data = calculatePayslip(data['hoursWorked'], data['hourlyWage'], data['costsOfGettingIncome'])
+        data = PayslipGenerator.calculatePayslip(data['hoursWorked'], data['hourlyWage'], data['costsOfGettingIncome'])
+        data = asdict(data)
 
         data.update({'employeeId': user.id})
         serializer = CreatePayslipSerializer(data=data)
@@ -69,7 +71,7 @@ class DownloadPayslipView(APIView):
         employee = userModel.objects.get(id=payslipData['employeeId'])
         employeeData = serializers.UserSerializer(employee).data
 
-        buffer = createPayslipPDF(payslipData, employeeData)
+        buffer = PayslipGenerator.createPayslipPDF(payslipData, employeeData)
 
         return FileResponse(buffer, as_attachment=True, filename=f"payslip{payslipData['id']}.pdf")
     
