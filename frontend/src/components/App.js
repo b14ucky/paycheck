@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import React from 'react';
 import MainPage from './MainPage';
-import './App.css';
+import './App.scss';
 import axios from 'axios';
 
 axios.defaults.xsrfCookieName = 'csrftoken';

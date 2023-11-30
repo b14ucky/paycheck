@@ -58,8 +58,8 @@ export default function RegisterPage() {
     }
 
     return (
-        <main>
-            <section className="loginGoTo">
+        <main className="register">
+            <section className="loginSection">
                 <div className="loginTitle">
                     <a className="titleText">Already have an account?</a>
                 </div>
@@ -71,7 +71,7 @@ export default function RegisterPage() {
                     <input type="button" value="Log in" id="loginButton" className="buttonAnimation OnFocus button" onClick={() => navigate('/login/')}/>
                 </div>
             </section>
-            <section className="register">
+            <section className="registerSection">
                 <div className="registerTitle">
                     <a className="titleText">Create Account</a>
                 </div>
@@ -113,7 +113,7 @@ export default function RegisterPage() {
                     </form>
                 </div>
             </section>
-            <div className="blurBackground" style={{visibility: promptVisible ? 'visible' : 'hidden'}}>
+            {/* <div className="blurBackground" style={{visibility: promptVisible ? 'visible' : 'hidden'}}>
                 <div className="promptContainer" style={{transform: promptVisible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)'}}>
                     <div className="prompt confirmationPrompt">
                         <div className="closeWrapper" onClick={() => setPromptVisible(false)}>
@@ -154,7 +154,7 @@ export default function RegisterPage() {
                         <a className="promptTitle">Both Passwords Must Match</a>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </main>
     );
 }

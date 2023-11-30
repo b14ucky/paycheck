@@ -1,0 +1,9 @@
+@import '../scss/variables';
+@import '../scss/dashboard';
+@import '../scss/navbar';
+@import '../scss/login';
+@import '../scss/register';
+
+* {
+    font-family: $font-stack;
+}

@@ -13,6 +13,7 @@ export default function LoginPage() {
 
     function submitLogin(event) {
         event.preventDefault();
+        console.log(username.current.value, password.current.value)
         client.post(
             '/auth/login',
             {
@@ -26,8 +27,8 @@ export default function LoginPage() {
     }
 
     return (
-        <main>
-            <section className="login">
+        <main className="login">
+            <section className="loginSection">
                 <div className="loginTitle">
                     <a className="titleText">Login to your account</a>
                 </div>
@@ -38,11 +39,11 @@ export default function LoginPage() {
                 <div className="loginForm">
                     <form onSubmit={event => submitLogin(event)}>
                         <div className="username">
-                            <input type="text" name="Username" id="username" placeholder="Username" className="inputAnimation OnFocus inputField" autoComplete="username" ref={username}/>
+                            <input type="text" name="Username" id="username" placeholder="Username" className="inputAnimation OnFocus inputField" autoComplete="username" ref={username} required/>
                         </div>
                         <br /><br />
                         <div className="password">
-                            <input type="password" name="password" id="password" placeholder="Password" className="inputAnimation OnFocus inputField" autoComplete="current-password" ref={password} />
+                            <input type="password" name="password" id="password" placeholder="Password" className="inputAnimation OnFocus inputField" autoComplete="current-password" ref={password} required/>
                         </div>
                         <br /><br />
                         <div className="loginButtonContainer">
@@ -51,7 +52,7 @@ export default function LoginPage() {
                     </form>
                 </div>
             </section>
-            <section className="registerGoTo">
+            <section className="registerSection">
                 <div className="registerTitle">
                     <a className="titleText">New Here?</a>
                 </div>

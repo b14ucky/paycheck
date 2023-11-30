@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+$font-stack: 'Inter', sans-serif;
+
+$black: #26292C;
+$gray: #7C7B79;
+$whiteish: #F6F6F3;
+$grayish: #F4F5F6;
+$white: #FFF;
+$green: #3BA590;
+$red: #C54B4B;
+
+$hover-color: lighten($black, 10%);
+$hover-color2: lighten($gray, 20%);
+$hover-color3: lighten($gray, 30%);
+$hover-color4: lighten($red, 10%);
+$hover-color5: lighten($gray, 45%);
+
+$click-color: #2F3337;
+$click-color2: lighten($gray, 10%);
+$click-color3: lighten($gray, 20%);
+$click-color4: darken($red, 10%);
+$click-color5: lighten($gray, 40%);

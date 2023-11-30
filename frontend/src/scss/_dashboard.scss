@@ -1,0 +1,344 @@
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+
+    .mainWrapper {
+        background: $grayish;
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 85vw;
+
+        .topBar {
+            background: $white;
+            height: 12.5vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1em 0 1em;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+
+            .titleText {
+                font-size: 2rem;
+                font-weight: 800;
+            }
+
+            .userContainer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                margin-right: 1.5em;
+
+                .userIcon {
+                    aspect-ratio: 1/1;
+                    width: 4.5em;
+                    display: grid;
+                    place-items: center;
+
+                    .userInfoContainer {
+                        position: absolute;
+                        top: 100%;
+    
+                        .userInfo {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            position: relative;
+                            background: $white;
+                            box-shadow: 0 5px 8px 2px rgba(0, 0, 0, 0.3);
+                            border-radius: 1em;
+                            padding: 2em 1em;
+                            text-align: center;
+                            min-width: 15em;
+                            overflow: hidden;
+    
+                            .nameText {
+                                font-size: 1.5rem;
+                                font-weight: 500;
+                                letter-spacing: 2px;
+                            }
+
+                            .lineSeparator {
+                                width: 50%;
+                                border: 1px solid $green;
+                                margin: 1em 0;
+                                opacity: .75;
+                            }
+    
+                            .infoText {
+                                font-weight: 200;
+                            }
+        
+                            .userGroups {
+                                list-style-type: none;
+                                line-height: 1.5em;
+
+                                li::before {
+                                    content: "\2022";
+                                    color: $green;
+                                    display: inline-block;
+                                    width: 1em;
+                                    margin-left: -1em;
+                                  }
+                            }
+                        }
+                    }
+
+                    .shown {
+                        visibility: visible;
+                        max-height: 500px;
+                        transition: 
+                            visibility 150ms linear,
+                            max-height 250ms ease;
+                    }
+                    
+                    .hidden {
+                        visibility: hidden;
+                        max-height: 0;
+                        transition: 
+                            visibility 150ms linear,
+                            max-height 250ms ease;
+                    }
+                }
+
+
+                .showInfoButton {
+                    margin-left: -1em;
+                    border-radius: 50%;
+                    display: grid;
+                    place-items: center;
+                    transform: scale(.5);
+                    padding: .5em;
+                    cursor: pointer;
+                    background: transparent;
+                    transition: 
+                        background 150ms ease,
+                        rotate 175ms ease;
+
+
+                    &:hover {
+                        background: $hover-color2;
+                    }
+
+                    &:active {
+                        background: $click-color2;
+                    }
+                }
+
+                .open {
+                    rotate: -180deg;
+                }
+
+                .close {
+                    rotate: 0deg;
+                }
+
+            }
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+
+            .firstRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                min-height: 25vh;
+
+                .firstRowItem {
+                    background: $white;
+                    width: 23%;
+                    min-height: 20vh;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+                    border-radius: 1.75em;
+                    padding: 1.5em;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .text {
+                        font-size: 1.25rem;
+                        font-weight: 500;
+                        letter-spacing: 2px;
+                        color: $whiteish;
+                    }
+
+                    .number {
+                        font-size: 2.15rem;
+                        font-weight: 800;
+                        letter-spacing: 2px;
+                        color: $whiteish;
+                    }
+
+                    &:first-child {
+                        background: $green;
+                    }
+
+                    &:nth-child(2) {
+                        background: $whiteish;
+
+                        .text { color: $black;}
+                        .number { color: $black;}
+                    }
+
+                    &:nth-child(3) {
+                        background: $gray;
+
+                        .text { color: $black;}
+                        .number { color: $black;}
+                    }
+
+                    &:last-child {
+                        background: $red;
+                    }
+                }
+            }
+
+            .secondRow {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-evenly;
+                min-height: 62.5vh;
+
+                .secondRowItem {
+                    background: $white;
+                    width: 48%;
+                    min-height: 60vh;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+                    border-radius: 1.75em;
+                    padding: 1.5em;
+                    display: flex;
+                    flex-direction: column;
+
+                    .title {
+                        font-size: 2rem;
+                        font-weight: 600;
+                        color: $black;
+                        padding: .15em .5em;
+                    }
+
+                    .container {
+                        display: grid;
+                        place-items: center;
+                        flex: 1;
+                        .payslips {
+                            border-collapse: collapse;
+                            .payslip {
+                                border-bottom: 2px solid $hover-color3;
+                                text-align: center;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-around;
+                                gap: 1.5em;
+    
+                                .payslipData {
+                                    .text {
+                                        font-size: 1.25rem;
+                                        font-weight: 200;
+                                        color: $black;
+                                    }
+        
+                                    .data {
+                                        font-size: 1.5rem;
+                                        font-weight: 500;
+                                        color: $green;
+                                        margin-left: .25em;
+                                    }
+        
+                                }
+        
+                                .downloadButton {
+                                    position: relative;
+                                    cursor: pointer;
+                                    
+                                    svg {
+                                        border-radius: 50%;
+                                        width: 32px;
+                                        height: 32px;
+                                        padding: .25em;
+                                        transition: background 200ms ease;
+        
+                                        &:hover {
+                                            background: $hover-color3;
+                                        }
+        
+                                        &:active {
+                                            background: $click-color3;
+                                        }
+                                    }
+        
+                                }
+    
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+                            }
+                        }
+                    }
+                    .calendarControls {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .calendarButton {
+                            background: none;
+                            border: none;
+                            border-radius: 50%;
+                            cursor: pointer;
+
+                            svg {
+                                border-radius: 50%;
+
+                                &:hover {
+                                    background: $hover-color5;
+                                }
+
+                                &:active {
+                                    background: $click-color5;
+                                }
+                            }
+                        }
+
+                        .month {
+                            font-size: 1.5rem;
+                            font-weight: 500;
+                            color: $black;
+                        }
+                    }
+
+                    .calendar {
+                        border-radius: 1em;
+                        background: $whiteish;
+                        color: $black;
+                        border-collapse: collapse;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+
+
+                        th, td {
+                            font-size: 1.75rem;
+                            width: 2.75em;
+                            height: 1.5em;
+                            text-align: center;
+                        }
+
+                        tr {
+                            border-bottom: 2px solid $green;
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+                        }
+
+                        .currentDay {
+                            background: $green;
+                            color: $whiteish;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
