@@ -15,6 +15,16 @@ export default function DashboardPage() {
         return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     }
 
+    function nextPayDate() {
+        const date = new Date();
+        const currentDay = date.getDate();
+        const currentMonth = date.getMonth();
+        const currentYear = date.getFullYear();
+        const nextPayDate = new Date(currentYear, currentDay >= 10 ? currentMonth + 1 : currentMonth, 10);
+        const daysLeft = Math.ceil((nextPayDate.getTime() - date.getTime()) / (1000 * 3600 * 24));
+        return daysLeft;
+    }
+
     useEffect(() => {
         client.get('/auth/user')
         .then(response => {
@@ -38,7 +48,7 @@ export default function DashboardPage() {
                         <div className="firstRowItem">
                             <a className="text">Next Pay in:</a>
                             <br />
-                            <a className="number">5 days</a>
+                            <a className="number">{nextPayDate()} days</a>
                         </div>
                         <div className="firstRowItem">
                             <a className="text">Today is: </a>

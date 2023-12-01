@@ -282,6 +282,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
+                        margin: .5em 4em;
 
                         .calendarButton {
                             background: none;
@@ -291,6 +292,8 @@
 
                             svg {
                                 border-radius: 50%;
+                                width: 40px;
+                                height: 40px;
 
                                 &:hover {
                                     background: $hover-color5;
@@ -318,7 +321,7 @@
 
 
                         th, td {
-                            font-size: 1.75rem;
+                            font-size: 1.5rem;
                             width: 2.75em;
                             height: 1.5em;
                             text-align: center;

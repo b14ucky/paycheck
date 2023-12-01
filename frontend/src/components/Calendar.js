@@ -16,7 +16,7 @@ export default function Calendar() {
         let dayCounter = 1;
         const calendarRows = [];
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             const days = [];
             for (let j = 0; j < 7; j++) {
                 const isCurrentDay = currentDate.getDate() === dayCounter && currentDate.getMonth() === currentMonth && currentDate.getFullYear() === date.getFullYear();
