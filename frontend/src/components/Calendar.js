@@ -11,6 +11,7 @@ export default function Calendar() {
     function generateCalendar() {
         const currentMonth = date.getMonth();
         const daysInMonth = new Date(date.getFullYear(), currentMonth + 1, 0).getDate();
+        const startDay = new Date(date.getFullYear(), currentMonth, 1).getDay();
 
         let dayCounter = 1;
         const calendarRows = [];
@@ -18,16 +19,14 @@ export default function Calendar() {
         for (let i = 0; i < 5; i++) {
             const days = [];
             for (let j = 0; j < 7; j++) {
-                if (currentDate.getDate() === dayCounter && currentDate.getMonth() === currentMonth && currentDate.getFullYear() === date.getFullYear()) {
+                const isCurrentDay = currentDate.getDate() === dayCounter && currentDate.getMonth() === currentMonth && currentDate.getFullYear() === date.getFullYear();
+
+                if ((i === 0 && j < startDay) || dayCounter > daysInMonth) {
+                    days.push(<td key={j}></td>);
+                  } else {
                     days.push(
-                        <td key={j} className="currentDay">
-                        {i === 0 && j < new Date(date.getFullYear(), currentMonth, 1).getDay() ? '' : dayCounter > daysInMonth ? '' : dayCounter++}
-                        </td>
-                    );
-                } else {
-                    days.push(
-                    <td key={j}>
-                        {i === 0 && j < new Date(date.getFullYear(), currentMonth, 1).getDay() ? '' : dayCounter > daysInMonth ? '' : dayCounter++}
+                    <td key={j} className={isCurrentDay ? 'currentDay' : ''}>
+                        {dayCounter <= daysInMonth ? dayCounter++ : ''}
                     </td>
                     );
                 }
