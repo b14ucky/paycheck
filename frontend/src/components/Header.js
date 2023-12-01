@@ -44,9 +44,14 @@ export default function Header() {
     }
 
     function displayGroups() {
+        if (groups.length === 0) {
+            return (
+                <li>You don't have any groups yet!</li>
+            );
+        }
         return groups.map(group => {
             return (
-                <li>{group.name}</li>
+                <li key={group.name}>{group.name}</li>
             );
         });
     }

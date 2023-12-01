@@ -13,7 +13,6 @@ export default function LoginPage() {
 
     function submitLogin(event) {
         event.preventDefault();
-        console.log(username.current.value, password.current.value)
         client.post(
             '/auth/login',
             {

@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Calendar from "./Calendar";
 import Header from "./Header";
+import axios from "axios";
+
+const client = axios.create();
 
 export default function DashboardPage() {
+
+    const [user, setUser] = useState({});
 
     function displayCurrentDate() {
         const date = new Date();
         return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     }
+
+    useEffect(() => {
+        client.get('/auth/user')
+        .then(response => {
+            setUser(response.data.user);
+        })
+        .catch(error => navigate('/login/'));
+    }, [])
 
     return (
         <main className="dashboard">
@@ -28,14 +41,14 @@ export default function DashboardPage() {
                             <a className="number">5 days</a>
                         </div>
                         <div className="firstRowItem">
-                            <a className="text">Messages:</a>
-                            <br />
-                            <a className="number">3 unread</a>
-                        </div>
-                        <div className="firstRowItem">
                             <a className="text">Today is: </a>
                             <br />
                             <a className="number date">{displayCurrentDate()}</a>
+                        </div>
+                        <div className="firstRowItem">
+                            <a className="text">Logged in as:</a>
+                            <br />
+                            <a className="number">{user.username}</a>
                         </div>
                     </div>
                     <div className="secondRow">
