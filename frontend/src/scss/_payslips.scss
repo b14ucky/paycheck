@@ -7,12 +7,20 @@
         position: absolute;
         right: 0;
         width: 85vw;
+        min-height: 100vh;
 
         .main {
+            min-height: 77.5vh;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
+
+            .text {
+                font-size: 1.5rem;
+                color: $black;
+                font-weight: 500;
+            }
 
             .payslip {
                 display: flex;
@@ -24,6 +32,7 @@
                 box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
                 margin: 1.5em auto;
                 min-width: 40rem;
+                background: $white;
 
                 .payslipContent {
                     display: flex;
@@ -36,16 +45,29 @@
                             display: flex;
                             flex-direction: column;
                             padding: .5em;
-                        }
-                        
-                        .number {
-                            font-size: 2.15rem;
-                            color: #3BA590;
+
+                            .text {
+                                font-size: 1.25rem;
+                                font-weight: 300;
+                                color: $green;
+                            }
+
+                            .number {
+                                font-size: 2.15rem;
+                                font-weight: 500;
+                                color: $green;
+                            }
                         }
                     }
 
-                    .periodContainer {
+                    .dateOfPreparation {
                         padding: .5em;
+
+                        .text {
+                            color: $green;
+                            font-size: 1.25rem;
+                            font-weight: 300;
+                        }
                     }
                 }
 
@@ -84,6 +106,11 @@
 
                         &:active {
                             box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+
+                        &:focus {
+                            outline: none;
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
                         }
                     }
                 }

@@ -29,7 +29,7 @@ export default function ManagePayslipsList(props) {
                         <a className="number">{props.payslip.grossPay} PLN</a>
                     </div>
                 </div>
-                <div className="periodContainer">
+                <div className="dateOfPreparation">
                     <a className="text">Date Of Preparation: {props.payslip.dateOfPreparation}</a>
                 </div>
             </div>

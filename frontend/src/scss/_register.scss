@@ -68,6 +68,11 @@
                 &:active {
                     box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
                 }
+
+                &:focus {
+                    outline: none;
+                    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                }
             }
         }
     }
@@ -222,6 +227,11 @@
         
                         &:active {
                             box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+
+                        &:focus {
+                            outline: none;
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
                         }
                     }
                 }
