@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import './App.css';
 import axios from 'axios';
 import ManagePayslip from './ManagePayslip';
 import Navbar from "./Navbar";
+import Header from "./Header";
+
+const client = axios.create();
 
 export default function ManagePayslipsPage() {
-
-    const client = axios.create();
 
     const navigate = useNavigate();
 
@@ -65,21 +65,11 @@ export default function ManagePayslipsPage() {
         });
     }
 
-    function handleLogout(event) {
-        event.preventDefault();
-        client.post('/auth/logout')
-        .then(response => {
-            navigate('/login/');
-        });
-    }
-
     return (
-        <main>
+        <main className="managePayslipsPage">
             <Navbar />
             <section className="mainWrapper">
-                <header className="title">
-                    <a className="titleText">Manage Payslips</a>
-                </header>
+                <Header title="Manage Payslips" />
                 <div className="selectionWrapper">
                     <div className="selectionContainer">
                         <a className="text">Employee Name: </a>

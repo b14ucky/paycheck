@@ -1,45 +1,90 @@
-import React, { useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import './App.css';
-import axios from 'axios';
-
-
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withCredentials = true;
+import Calendar from "./Calendar";
+import Header from "./Header";
+import axios from "axios";
 
 const client = axios.create();
 
 export default function DashboardPage() {
 
-    const navigate = useNavigate();
+    const [user, setUser] = useState({});
 
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
-    const [groups, setGroups] = useState([]);
+    function displayCurrentDate() {
+        const date = new Date();
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    }
+
+    function nextPayDate() {
+        const date = new Date();
+        const currentDay = date.getDate();
+        const currentMonth = date.getMonth();
+        const currentYear = date.getFullYear();
+        const nextPayDate = new Date(currentYear, currentDay >= 10 ? currentMonth + 1 : currentMonth, 10);
+        const daysLeft = Math.ceil((nextPayDate.getTime() - date.getTime()) / (1000 * 3600 * 24));
+        return daysLeft;
+    }
 
     useEffect(() => {
         client.get('/auth/user')
         .then(response => {
-            setFirstName(response.data.user.first_name);
-            setLastName(response.data.user.last_name);
-            setGroups(response.data.user.groups);
+            setUser(response.data.user);
         })
-        .catch(error => navigate('/login/'))
-    }, []);
+        .catch(error => navigate('/login/'));
+    }, [])
 
     return (
-        <main>
+        <main className="dashboard">
             <Navbar />
             <section className="mainWrapper">
-                <header className="title">
-                    <a className="titleText">Dashboard</a>
-                </header>
+                <Header title="Dashboard" />
                 <div className="main">
-                    <div style={{textAlign: "center", lineHeight: "50px", fontSize: "2rem"}}>
-                        <p>{!groups.length ? "You are not assigned to any group. Please conntact an administrator!" : ''}</p>
-                        <p>Hello {firstName} {lastName}</p>
+                    <div className="firstRow">
+                        <div className="firstRowItem">
+                            <a className="text">Last Pay:</a>
+                            <br />
+                            <a className="number">4500 PLN</a>
+                        </div>
+                        <div className="firstRowItem">
+                            <a className="text">Next Pay in:</a>
+                            <br />
+                            <a className="number">{nextPayDate()} days</a>
+                        </div>
+                        <div className="firstRowItem">
+                            <a className="text">Today is: </a>
+                            <br />
+                            <a className="number date">{displayCurrentDate()}</a>
+                        </div>
+                        <div className="firstRowItem">
+                            <a className="text">Logged in as:</a>
+                            <br />
+                            <a className="number">{user.username}</a>
+                        </div>
+                    </div>
+                    <div className="secondRow">
+                        <div className="secondRowItem">
+                            <a className="title">Latest Payslips</a>
+                            <div className="container">
+                                <table className="payslips">
+                                    <tbody>
+                                        <tr className="payslip">
+                                            <td className="payslipData">
+                                                <a className="text">Month: </a>
+                                                <a className="data">October</a>
+                                            </td>
+                                            <td className="payslipData">
+                                                <a className="text">Net Pay: </a>
+                                                <a className="data">100 000 PLN</a>
+                                            </td>
+                                            <td className="downloadButton">
+                                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4BBEA7"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="#4BBEA7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="#4BBEA7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <Calendar />
                     </div>
                     <p>Please note this is a demo so you can style this page as you wish!</p>
                 </div>

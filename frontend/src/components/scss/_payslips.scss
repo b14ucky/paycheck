@@ -1,0 +1,120 @@
+.payslipsPage {
+    display: flex;
+    min-height: 100vh;
+
+    .mainWrapper {
+        background: $grayish;
+        position: absolute;
+        right: 0;
+        width: 85vw;
+        min-height: 100vh;
+
+        .main {
+            min-height: 77.5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            .text {
+                font-size: 1.5rem;
+                color: $black;
+                font-weight: 500;
+            }
+
+            .payslip {
+                display: flex;
+                justify-content: space-around;
+                padding: 1em;
+                border-radius: 1em;
+                -webkit-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                -moz-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                margin: 1.5em auto;
+                min-width: 40rem;
+                background: $white;
+
+                .payslipContent {
+                    display: flex;
+                    flex-direction: column;
+
+                    .salariesContainer {
+                        display: flex;
+
+                        .salaryText {
+                            display: flex;
+                            flex-direction: column;
+                            padding: .5em;
+
+                            .text {
+                                font-size: 1.25rem;
+                                font-weight: 300;
+                                color: $green;
+                            }
+
+                            .number {
+                                font-size: 2.15rem;
+                                font-weight: 500;
+                                color: $green;
+                            }
+                        }
+                    }
+
+                    .dateOfPreparation {
+                        padding: .5em;
+
+                        .text {
+                            color: $green;
+                            font-size: 1.25rem;
+                            font-weight: 300;
+                        }
+                    }
+                }
+
+                .downloadPDFButtonContainer {
+                    display: grid;
+                    place-items: center;
+                    padding: .5em;
+                    padding-left: 1em;
+
+                    .button {
+                        color: $whiteish;
+                        background: $green;
+                        font-size: 1.15rem;
+                        font-weight: 500;
+                        border: none;
+                        padding: .25em .5em;
+                        border-radius: 20em;
+                        width: 10em;
+                        height: 2.5em;
+                        cursor: pointer;
+                        box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                        transition: all 100ms ease;
+                        -o-transition: all 100ms ease;
+                        -ms-transition: all 100ms ease;
+                        -moz-transition: all 100ms ease;
+                        -webkit-transition: all 100ms ease;
+
+                        &:hover {
+                            transform: scale(1.1);
+                            -o-transform: scale(1.1);
+                            -ms-transform: scale(1.1);
+                            -moz-transform: scale(1.1);
+                            -webkit-transform: scale(1.1); 
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+
+                        &:active {
+                            box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+
+                        &:focus {
+                            outline: none;
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 

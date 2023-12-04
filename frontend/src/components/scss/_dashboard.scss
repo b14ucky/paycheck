@@ -1,0 +1,218 @@
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+
+    .mainWrapper {
+        background: $grayish;
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 85vw;
+
+        .main {
+            display: flex;
+            flex-direction: column;
+
+            .firstRow {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                min-height: 25vh;
+
+                .firstRowItem {
+                    background: $white;
+                    width: 23%;
+                    min-height: 20vh;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+                    border-radius: 1.75em;
+                    padding: 1.5em;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .text {
+                        font-size: 1.25rem;
+                        font-weight: 500;
+                        letter-spacing: 2px;
+                        color: $whiteish;
+                    }
+
+                    .number {
+                        font-size: 2.15rem;
+                        font-weight: 800;
+                        letter-spacing: 2px;
+                        color: $whiteish;
+                    }
+
+                    &:first-child {
+                        background: $green;
+                    }
+
+                    &:nth-child(2) {
+                        background: $whiteish;
+
+                        .text { color: $black;}
+                        .number { color: $black;}
+                    }
+
+                    &:nth-child(3) {
+                        background: $gray;
+
+                        .text { color: $black;}
+                        .number { color: $black;}
+                    }
+
+                    &:last-child {
+                        background: $red;
+                    }
+                }
+            }
+
+            .secondRow {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-evenly;
+                min-height: 62.5vh;
+
+                .secondRowItem {
+                    background: $white;
+                    width: 48%;
+                    min-height: 60vh;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+                    border-radius: 1.75em;
+                    padding: 1.5em;
+                    display: flex;
+                    flex-direction: column;
+
+                    .title {
+                        font-size: 2rem;
+                        font-weight: 600;
+                        color: $black;
+                        padding: .15em .5em;
+                    }
+
+                    .container {
+                        display: grid;
+                        place-items: center;
+                        flex: 1;
+                        .payslips {
+                            border-collapse: collapse;
+                            .payslip {
+                                border-bottom: 2px solid $hover-color3;
+                                text-align: center;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-around;
+                                gap: 1.5em;
+    
+                                .payslipData {
+                                    .text {
+                                        font-size: 1.25rem;
+                                        font-weight: 200;
+                                        color: $black;
+                                    }
+        
+                                    .data {
+                                        font-size: 1.5rem;
+                                        font-weight: 500;
+                                        color: $green;
+                                        margin-left: .25em;
+                                    }
+        
+                                }
+        
+                                .downloadButton {
+                                    position: relative;
+                                    cursor: pointer;
+                                    
+                                    svg {
+                                        border-radius: 50%;
+                                        width: 32px;
+                                        height: 32px;
+                                        padding: .25em;
+                                        transition: background 200ms ease;
+        
+                                        &:hover {
+                                            background: $hover-color3;
+                                        }
+        
+                                        &:active {
+                                            background: $click-color3;
+                                        }
+                                    }
+        
+                                }
+    
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+                            }
+                        }
+                    }
+                    .calendarControls {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin: .5em 4em;
+
+                        .calendarButton {
+                            background: none;
+                            border: none;
+                            border-radius: 50%;
+                            cursor: pointer;
+
+                            svg {
+                                border-radius: 50%;
+                                width: 40px;
+                                height: 40px;
+
+                                &:hover {
+                                    background: $hover-color5;
+                                }
+
+                                &:active {
+                                    background: $click-color5;
+                                }
+                            }
+                        }
+
+                        .month {
+                            font-size: 1.5rem;
+                            font-weight: 500;
+                            color: $black;
+                        }
+                    }
+
+                    .calendar {
+                        border-radius: 1em;
+                        background: $whiteish;
+                        color: $black;
+                        border-collapse: collapse;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+
+
+                        th, td {
+                            font-size: 1.5rem;
+                            width: 2.75em;
+                            height: 1.5em;
+                            text-align: center;
+                        }
+
+                        tr {
+                            border-bottom: 2px solid $green;
+
+                            &:last-child {
+                                border-bottom: none;
+                            }
+                        }
+
+                        .currentDay {
+                            background: $green;
+                            color: $whiteish;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,263 @@
+.calculatorPage {
+    display: flex;
+    min-height: 100vh;
+
+    .mainWrapper {
+        background: $grayish;
+        position: absolute;
+        right: 0;
+        width: 85vw;
+        min-height: 100vh;
+
+        .main {
+            min-height: 77.5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            .calculator {
+                padding: 2em;
+                border-radius: 1em;
+                background: $white;
+                -webkit-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                -moz-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                margin-top: 2.5rem;
+
+                .calculatorTitle {
+                    display: flex;
+
+                    svg {
+                        width: 65px;
+                        height: 65px;
+                        flex: 25% 1 1;
+                    }
+
+                    .textWrapper {
+                        flex: 75% 1 1;
+                        display: grid;
+                        align-items: center;
+
+                        .text {
+                            font-size: 1.5rem;
+                            color: $green;
+                            font-weight: 500;
+                        }
+                    }
+                }
+
+                .inputField {
+                    font-family: $font-stack;
+                    position: relative;
+                    padding: .25em .5em;
+                    padding-left: 1.75em;
+                    height: 3.5em;
+                    width: 25em;
+                    border-radius: 1.5em;
+                    border: none;
+                    background: rgb(75 190 167 / .15);
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: $green;
+
+                    &::placeholder {
+                        position: absolute;
+                        font-weight: 500;
+                        font-size: 1rem;
+                        left: 1.75em;
+                        color: $green;
+                    }
+
+                    &::-moz-placeholder {
+                        position: absolute;
+                        font-weight: 500;
+                        font-size: 1rem;
+                        left: 1.75em;
+                        color: $green;
+                    }
+
+                    &::-webkit-input-placeholder {
+                        position: absolute;
+                        font-weight: 500;
+                        font-size: 1rem;
+                        left: 1.75em;
+                        color: $green;
+                    }
+                    
+
+                }
+
+                .inputAnimation {
+                    box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                    transition: all 100ms ease;
+                    -o-transition: all 100ms ease;
+                    -ms-transition: all 100ms ease;
+                    -moz-transition: all 100ms ease;
+                    -webkit-transition: all 100ms ease;
+
+                    &:hover {
+                        box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                    }
+
+                    &:focus {
+                        outline: none;
+                        box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                    }
+                }
+
+                input[type=number]::-webkit-inner-spin-button,
+                input[type=number]::-webkit-outer-spin-button { 
+                    -webkit-appearance: none; 
+                    margin: 0; 
+                }
+
+                input[type=number] { 
+                    -moz-appearance: textfield;
+                    appearance: textfield;
+                    margin: 0; 
+                }
+
+                input[type=radio] { 
+                    accent-color: $green; 
+                    margin-left: .5em;
+                }
+
+                .selectionWrapper {
+                    display: grid;
+                    place-items: center;
+
+                    .selectionContainer {
+                        display: flex;
+                        align-items: center;
+
+                        .text {
+                            font-size: 1rem;
+                            color: $green;
+                            font-weight: 500;
+                        }
+
+                        .selectMenu {
+                            position: relative;
+
+                            .selectEmployee {
+                                appearance: none;
+                                -webkit-appearance: none;
+                                font-size: 1rem;
+                                font-weight: 500;
+                                padding: .5em 1.75em .5em .75em;
+                                cursor: pointer;
+                                margin-left: .5em;
+                                border-radius: 1.5em;
+                                border: none;
+                                background: rgb(75 190 167 / .15);
+                                color: $green;
+                                box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                                transition: all 100ms ease;
+
+                                &:hover {
+                                    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                                }
+                                
+                                &:focus {
+                                    outline: none;
+                                    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                                }
+                            }
+
+                            &::before,
+                            &::after {
+                                position: absolute;
+                                content: "";
+                                right: .5em;
+                                pointer-events: none;
+                            }
+                            
+                            &::before {
+                              border-left: .3rem solid transparent;
+                              border-right: .3rem solid transparent;
+                              border-bottom: .3rem solid #3BA590;
+                              top: 35%;
+                            }
+                            
+                            &::after {
+                              border-left: .3rem solid transparent;
+                              border-right: .3rem solid transparent;
+                              border-top: .3rem solid #3BA590;
+                              top: 55%;
+                            }
+                        }
+                    }
+                }
+
+                .costsOfGettingIncomeWrapper {
+                    display: grid;
+                    place-items: center;
+
+                    .text {
+                        font-size: 1rem;
+                        color: $green;
+                        font-weight: 500;
+                    }
+
+                    .radioWrapper {
+                        .labelText {
+                            font-size: 1rem;
+                            color: $green;
+                            font-weight: 300;
+                        }
+
+                    }
+
+                    .line {
+                        width: 45%;
+                        border: 1px solid $green;
+                        opacity: .5;
+                    }
+                }
+
+                .calculateButtonContainer {
+                    display: grid;
+                    place-items: center;
+                    
+                    #calculateButton {
+                        color: $whiteish;
+                        background: $green;
+                        font-size: 1.15rem;
+                        font-weight: 500;
+                        border: none;
+                        padding: .25em .5em;
+                        border-radius: 20em;
+                        width: 10em;
+                        height: 2.5em;
+                        cursor: pointer;
+                        box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                        transition: all 100ms ease;
+                        -o-transition: all 100ms ease;
+                        -ms-transition: all 100ms ease;
+                        -moz-transition: all 100ms ease;
+                        -webkit-transition: all 100ms ease;
+
+                        &:hover {
+                            transform: scale(1.1);
+                            -o-transform: scale(1.1);
+                            -ms-transform: scale(1.1);
+                            -moz-transform: scale(1.1);
+                            -webkit-transform: scale(1.1); 
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+
+                        &:active {
+                            box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+
+                        &:focus {
+                            outline: none;
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+} 

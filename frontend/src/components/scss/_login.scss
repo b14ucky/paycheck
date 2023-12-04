@@ -1,0 +1,227 @@
+.login {
+    display: flex;
+    min-height: 100vh;
+
+    .loginSection {
+        flex: 60% 1 1;
+        background: $whiteish;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .loginTitle {
+            padding: 1em;
+            display: grid;
+            place-items: center;
+
+            .titleText {
+                font-size: 3.5rem;
+                font-weight: 700;
+                text-align: center;
+                color: $black;
+            }
+        }
+
+        .loginSubtitle {
+            padding: .5em;
+            text-align: center;
+
+            .subtitleText {
+                font-size: 1rem;
+                color: $gray;
+            }
+        }
+
+        .line {
+            width: 35%;
+            border: 1px solid $green;
+            opacity: .15;
+        }
+
+        .loginForm {
+
+            form {
+                .inputField {
+                    font-family: $font-stack;
+                    position: relative;
+                    padding: .25em .5em;
+                    padding-left: 1.75em;
+                    height: 3.5em;
+                    width: 25em;
+                    border-radius: 1.5em;
+                    border: none;
+                    background: rgb(75 190 167 / .15);
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: $green;
+
+                    &::placeholder {
+                        position: absolute;
+                        font-weight: 500;
+                        font-size: 1rem;
+                        left: 1.75em;
+                        color: $green;
+                    }
+
+                    &::-moz-placeholder {
+                        position: absolute;
+                        font-weight: 500;
+                        font-size: 1rem;
+                        left: 1.75em;
+                        color: $green;
+                    }
+
+                    &::-webkit-input-placeholder {
+                        position: absolute;
+                        font-weight: 500;
+                        font-size: 1rem;
+                        left: 1.75em;
+                        color: $green;
+                    }
+                    
+
+                }
+
+                .inputAnimation {
+                    box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                    transition: all 100ms ease;
+                    -o-transition: all 100ms ease;
+                    -ms-transition: all 100ms ease;
+                    -moz-transition: all 100ms ease;
+                    -webkit-transition: all 100ms ease;
+
+                    &:hover {
+                        box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                    }
+
+                    &:focus {
+                        outline: none;
+                        box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                    }
+                }
+                .loginButtonContainer {
+                    display: grid;
+                    place-items: center;
+
+                    #loginButton {
+                        color: $whiteish;
+                        background: $green;
+                        font-size: 1.15rem;
+                        font-weight: 500;
+                        border: none;
+                        padding: .25em .5em;
+                        border-radius: 20em;
+                        width: 10em;
+                        height: 2.5em;
+                        cursor: pointer;
+                        box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                        transition: all 100ms ease;
+                        -o-transition: all 100ms ease;
+                        -ms-transition: all 100ms ease;
+                        -moz-transition: all 100ms ease;
+                        -webkit-transition: all 100ms ease;
+
+                        &:hover {
+                            transform: scale(1.1);
+                            -o-transform: scale(1.1);
+                            -ms-transform: scale(1.1);
+                            -moz-transform: scale(1.1);
+                            -webkit-transform: scale(1.1); 
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+
+                        &:active {
+                            box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+
+                        &:focus {
+                            outline: none;
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+                    }
+                }
+
+                .username {
+                    padding-top: 2em;
+                }
+            }
+        }
+    }
+
+    .registerSection {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex: 40% 1 1;
+        background: $green;
+
+        .registerTitle {
+            padding: 2em;
+            display: grid;
+            place-items: center;
+
+            .titleText {
+                font-size: 3.5rem;
+                font-weight: 700;
+                text-align: center;
+                color: $whiteish;
+            }
+        }
+
+        .registerText {
+            .paragraphText {
+                font-size: 1.25rem;
+                letter-spacing: 3px;
+                max-width: 17.5em;
+                text-align: center;
+                line-height: 1.75em;
+                color: $whiteish;
+            }
+        }
+
+        .createAccountContainer {
+            padding: 2em;
+            display: grid;
+            place-items: center;
+
+            #createAccountButton {
+                color: $black;
+                background: $whiteish;
+                font-size: 1.15rem;
+                font-weight: 500;
+                border: none;
+                padding: .25em .5em;
+                border-radius: 20em;
+                width: 10em;
+                height: 2.5em;
+                cursor: pointer;
+                box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                transition: all 100ms ease;
+                -o-transition: all 100ms ease;
+                -ms-transition: all 100ms ease;
+                -moz-transition: all 100ms ease;
+                -webkit-transition: all 100ms ease;
+
+                &:hover {
+                    transform: scale(1.1);
+                    -o-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    -moz-transform: scale(1.1);
+                    -webkit-transform: scale(1.1); 
+                    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                }
+
+                &:active {
+                    box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                }
+
+                &:focus {
+                    outline: none;
+                    box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                }
+            }
+        }
+    }
+}

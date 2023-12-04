@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import './App.css';
 import axios from 'axios';
 import Navbar from "./Navbar";
-
-
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withCredentials = true;
+import Header from "./Header";
 
 const client = axios.create();
 
@@ -75,14 +70,11 @@ export default function CalculatorPage() {
         });
     }
 
-
     return (
-        <main>
+        <main className="calculatorPage">
             <Navbar />
             <section className="mainWrapper">
-                <header className="title">
-                    <a className="titleText">Calculator</a>
-                </header>
+                <Header title="Salary Calculator" />
                 <div className="main">
                     <form className="calculator" onSubmit={event => handleSubmit(event)}>
                         <div className="calculatorTitle">
@@ -113,9 +105,9 @@ export default function CalculatorPage() {
                             <a className="text">Costs Of Getting Income: </a>
                             <br />
                             <div className="radioWrapper">
-                                <label htmlFor="costsOfGettingIncomeTrue" className="text">300 zł</label>
+                                <label htmlFor="costsOfGettingIncomeTrue" className="labelText">300 zł</label>
                                 <input type="radio" name="costsOfGettingIncome" id="costsOfGettingIncomeTrue" value={300} className="OnFocus" ref={costsOfGettingIncome}/>
-                                <label htmlFor="costsOfGettingIncomeFalse" className="text">250 zł</label>
+                                <label htmlFor="costsOfGettingIncomeFalse" className="labelText">250 zł</label>
                                 <input type="radio" name="costsOfGettingIncome" id="costsOfGettingIncomeFalse" value={250} className="OnFocus" defaultChecked ref={costsOfGettingIncome}/>
                             </div>
                             <br />
@@ -128,7 +120,7 @@ export default function CalculatorPage() {
                     </form>
                 </div>
             </section>
-            <div className="blurBackground" style={{visibility: promptVisible ? 'visible' : 'hidden'}}>
+            {/* <div className="blurBackground" style={{visibility: promptVisible ? 'visible' : 'hidden'}}>
                 <div className="promptContainer" style={{transform: promptVisible ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0)'}}>
                     <div className="prompt confirmationPrompt">
                         <div className="closeWrapper" onClick={() => setPromptVisible(false)}>
@@ -143,7 +135,7 @@ export default function CalculatorPage() {
                         <input className="OnFocus button buttonAnimation" type="button" id="downloadPDFButton" value="Download PDF" />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </main>
     );
 }

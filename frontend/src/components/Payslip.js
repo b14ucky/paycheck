@@ -1,12 +1,11 @@
 import React from "react";
 import axios from 'axios';
-import './App.css';
 
 import FileDownload from 'js-file-download';
 
-export default function ManagePayslipsList(props) {
+const client = axios.create();
 
-    const client = axios.create();
+export default function ManagePayslipsList(props) {
         
     function handleDownload(payslipId) {
         client.post('/api/download-payslip/', {'id': payslipId}, {responseType: 'blob'})
@@ -30,12 +29,12 @@ export default function ManagePayslipsList(props) {
                         <a className="number">{props.payslip.grossPay} PLN</a>
                     </div>
                 </div>
-                <div className="periodContainer">
+                <div className="dateOfPreparation">
                     <a className="text">Date Of Preparation: {props.payslip.dateOfPreparation}</a>
                 </div>
             </div>
             <div className="downloadPDFButtonContainer">
-                <input type="button" value="Download PDF" id="payslip_${payslip.id}" className="button buttonAnimation OnFocus downloadPDFButton" onClick={() => handleDownload(props.payslip.id)}/>
+                <input type="button" value="Download PDF" id={`payslip_${props.payslip.id}`} className="button" onClick={() => handleDownload(props.payslip.id)}/>
             </div>
         </div>
     );

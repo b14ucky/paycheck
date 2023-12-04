@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ManageUser from './ManageUser';
+import Header from './Header';
 
 const client = axios.create();
 
@@ -99,12 +100,10 @@ export default function ManageUsersPage() {
     }
 
     return (
-        <main>
+        <main className="manageUsers">
             <Navbar />
             <section className="mainWrapper">
-                <header className="title">
-                    <a className="titleText">Manage Users</a>
-                </header>
+                <Header title="Manage Users" />
                 <div className="selectionContainer">
                     <a className="text">Employee Name: </a>
                     <div className="selectMenu">

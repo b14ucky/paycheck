@@ -1,0 +1,221 @@
+.managePayslipsPage {
+    display: flex;
+    min-height: 100vh;
+
+    .mainWrapper {
+        background: $grayish;
+        position: absolute;
+        right: 0;
+        width: 85vw;
+        min-height: 100vh;
+
+        .selectionWrapper {
+            display: grid;
+            place-items: center;
+
+            .selectionContainer {
+                display: flex;
+                align-items: center;
+
+                .text {
+                    font-size: 1rem;
+                    color: $green;
+                    font-weight: 500;
+                }
+
+                .selectMenu {
+                    position: relative;
+
+                    .selectEmployee {
+                        appearance: none;
+                        -webkit-appearance: none;
+                        font-size: 1rem;
+                        font-weight: 500;
+                        padding: .5em 1.75em .5em .75em;
+                        cursor: pointer;
+                        margin-left: .5em;
+                        border-radius: 1.5em;
+                        border: none;
+                        background: rgb(75 190 167 / .15);
+                        color: $green;
+                        box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                        transition: all 100ms ease;
+
+                        &:hover {
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+                        
+                        &:focus {
+                            outline: none;
+                            box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                        }
+                    }
+
+                    &::before,
+                    &::after {
+                        position: absolute;
+                        content: "";
+                        right: .5em;
+                        pointer-events: none;
+                    }
+                    
+                    &::before {
+                      border-left: .3rem solid transparent;
+                      border-right: .3rem solid transparent;
+                      border-bottom: .3rem solid #3BA590;
+                      top: 35%;
+                    }
+                    
+                    &::after {
+                      border-left: .3rem solid transparent;
+                      border-right: .3rem solid transparent;
+                      border-top: .3rem solid #3BA590;
+                      top: 55%;
+                    }
+                }
+
+                .searchContainer {
+                    transform: scale(.35);
+                    cursor: pointer;
+                    transition: all 150ms ease;
+                    border-radius: 100%;
+                    padding: 1.75em;
+                    margin-left: -1.75em;
+
+                    &:active {
+                        transform: scale(.3);
+                    }
+                    
+                    &:hover {
+                        background: rgb(124 123 121 / .15);
+                    }
+                }
+                
+            }
+        }
+
+        .main {
+            min-height: 77.5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+
+            .textInfo {
+                position: absolute;
+                top: 35%;
+                font-size: 1.5rem;
+                color: $black;
+                font-weight: 500;
+            }
+
+            .payslipContainer {
+                display: flex;
+                flex-direction: column;
+                padding: 1em;
+                border-radius: 1em;
+                -webkit-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                -moz-box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                box-shadow: 8px 8px 24px -10px rgba(66, 68, 90, 1);
+                margin: 1.5em auto;
+                min-width: 40rem;
+
+                .payslipId {
+                    text-align: center;
+                    padding-bottom: .5em;
+
+                    .text {
+                        font-size: 1.25rem;
+                        color: $green;
+                        font-weight: 500;
+                    }
+                }
+
+                .managePayslip {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .payslipContent {
+                        display: flex;
+                        flex-direction: column;
+    
+                        .salariesContainer {
+                            display: flex;
+    
+                            .salaryText {
+                                display: flex;
+                                flex-direction: column;
+                                padding: .5em;
+    
+                                .text {
+                                    font-size: 1.25rem;
+                                    font-weight: 300;
+                                    color: $green;
+                                }
+    
+                                .number {
+                                    font-size: 2.15rem;
+                                    font-weight: 500;
+                                    color: $green;
+                                }
+                            }
+                        }
+    
+                        .dateOfPreparation {
+                            padding: .5em;
+    
+                            .text {
+                                color: $green;
+                                font-size: 1.25rem;
+                                font-weight: 300;
+                            }
+                        }
+                    }
+
+                    .deleteButtonContainer {
+                        display: grid;
+                        place-items: center;
+
+                        .button {
+                            color: $whiteish;
+                            background: $red;
+                            font-size: 1.15rem;
+                            font-weight: 500;
+                            border: none;
+                            padding: .25em .5em;
+                            border-radius: 20em;
+                            width: 10em;
+                            height: 2.5em;
+                            cursor: pointer;
+                            box-shadow: 4px 4px 21px -12px rgba(66, 68, 90, 1);
+                            transition: all 100ms ease;
+                            -o-transition: all 100ms ease;
+                            -ms-transition: all 100ms ease;
+                            -moz-transition: all 100ms ease;
+                            -webkit-transition: all 100ms ease;
+    
+                            &:hover {
+                                transform: scale(1.1);
+                                -o-transform: scale(1.1);
+                                -ms-transform: scale(1.1);
+                                -moz-transform: scale(1.1);
+                                -webkit-transform: scale(1.1); 
+                                box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                            }
+    
+                            &:active {
+                                box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                            }
+    
+                            &:focus {
+                                outline: none;
+                                box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

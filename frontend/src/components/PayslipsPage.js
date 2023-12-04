@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './App.css';
 import axios from 'axios';
 import Payslip from './Payslip.js';
 import Navbar from "./Navbar.js";
-
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withCredentials = true;
+import Header from "./Header.js";
 
 const client = axios.create();
 
@@ -40,14 +36,6 @@ export default function PayslipsPage() {
         return true;
     }
 
-    function handleLogout(event) {
-        event.preventDefault();
-        client.post('/auth/logout')
-        .then(response => {
-            navigate('/login/');
-        });
-    }
-
     function displayPayslips(employeeId) {
         client.get(`/api/get-payslip/?employeeId=${employeeId}`)
             .then(response => {
@@ -58,12 +46,10 @@ export default function PayslipsPage() {
     }
 
     return (
-        <main>
+        <main className="payslipsPage">
             <Navbar />
             <section className="mainWrapper">
-                <header className="title">
-                    <a className="titleText">Payslips</a>
-                </header>
+                <Header title="Payslips" />
                 <div className="main">
                     {payslips.map(payslip => (<Payslip key={payslip.id} payslip={payslip} />))}
                 </div>
