@@ -86,6 +86,7 @@ export default function DashboardPage() {
                         </div>
                         <Calendar />
                     </div>
+                    <p>Please note this is a demo so you can style this page as you wish!</p>
                 </div>
             </section>
         </main>

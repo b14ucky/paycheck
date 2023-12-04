@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import CalculatorButton from './CalculatorButton';
+import PayslipsButton from './PayslipsButton';
+import ManagePayslipsButton from './ManagePayslipsButton';
+import ManageUsersButton from './ManageUsersButton';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
