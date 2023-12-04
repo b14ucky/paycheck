@@ -13,12 +13,12 @@ export default function ManagePayslipsList(props) {
         setShouldRender(false);
     }
     
-    if (props.payslip.id === null) return <a className="text">No payslips to display!</a>
+    if (props.payslip.id === null) return <a className="textInfo">No payslips to display!</a>
 
     if (shouldRender) {
         return (
             <div className="payslipContainer">
-                <div className="employeeName">
+                <div className="payslipId">
                     <a className="text">Payslip ID: {props.payslip.id}</a>
                 </div>
                 <div className="managePayslip">
@@ -33,14 +33,12 @@ export default function ManagePayslipsList(props) {
                                 <a className="number">{props.payslip.grossPay} PLN</a>
                             </div>
                         </div>
-                        <div className="periodContainer">
+                        <div className="dateOfPreparation">
                             <a className="text">Date Of Preparation: {props.payslip.dateOfPreparation}</a>
                         </div>
                     </div>
-                    <div className="buttonsContainer">
-                        <div className="deletePayslipButtonContainer">
-                            <input type="button" value="Delete" className="button buttonAnimation OnFocus deletePayslipButton" onClick={() => handleDelete(props.payslip.id)} />
-                        </div>
+                    <div className="deleteButtonContainer">
+                        <input type="button" value="Delete" className="button buttonAnimation OnFocus deletePayslipButton" onClick={() => handleDelete(props.payslip.id)} />
                     </div>
                 </div>
             </div>
