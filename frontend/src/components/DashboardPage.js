@@ -37,7 +37,7 @@ export default function DashboardPage() {
         <main className="dashboard">
             <Navbar />
             <section className="mainWrapper">
-                <Header />
+                <Header title="Dashboard" />
                 <div className="main">
                     <div className="firstRow">
                         <div className="firstRowItem">

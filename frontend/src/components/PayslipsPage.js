@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Payslip from './Payslip.js';
 import Navbar from "./Navbar.js";
+import Header from "./Header.js";
 
 const client = axios.create();
 
@@ -45,12 +46,10 @@ export default function PayslipsPage() {
     }
 
     return (
-        <main>
+        <main className="payslipsPage">
             <Navbar />
             <section className="mainWrapper">
-                <header className="title">
-                    <a className="titleText">Payslips</a>
-                </header>
+                <Header title="Payslips" />
                 <div className="main">
                     {payslips.map(payslip => (<Payslip key={payslip.id} payslip={payslip} />))}
                 </div>

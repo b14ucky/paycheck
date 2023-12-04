@@ -34,7 +34,7 @@ export default function ManagePayslipsList(props) {
                 </div>
             </div>
             <div className="downloadPDFButtonContainer">
-                <input type="button" value="Download PDF" id="payslip_${payslip.id}" className="button buttonAnimation OnFocus downloadPDFButton" onClick={() => handleDownload(props.payslip.id)}/>
+                <input type="button" value="Download PDF" id={`payslip_${props.payslip.id}`} className="button" onClick={() => handleDownload(props.payslip.id)}/>
             </div>
         </div>
     );
