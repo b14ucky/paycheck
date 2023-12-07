@@ -1,0 +1,24 @@
+.infoTextContainer {
+    display: grid;
+    place-items: center;
+    max-width: 22.5em;
+
+    .infoText {
+        text-align: center;
+        font-size: .85rem;
+        color: darken($red, 5%);
+        font-weight: 700;
+        animation: appear .5s ease-in-out;
+        line-height: 1.35em;
+
+        @keyframes appear {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+    }
+}
