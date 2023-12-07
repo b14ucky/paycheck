@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import InfoText from "./InfoText";
 
 const client = axios.create();
 
@@ -10,6 +11,8 @@ export default function LoginPage() {
 
     const username = useRef(null);
     const password = useRef(null);
+    const [errors, setErrors] = useState([]);
+    const [showInfo, setShowInfo] = useState(false);
 
     function submitLogin(event) {
         event.preventDefault();
@@ -22,8 +25,15 @@ export default function LoginPage() {
         ).then(response => {
             event.target.reset();
             navigate('/dashboard/')
-        })
+        }).catch(error => {
+            if (error.response.data.InvalidCredentials) setErrors([error.response.data.InvalidCredentials]);
+            else console.log(error);
+        });
     }
+
+    useEffect(() => {
+        if (errors.length) setShowInfo(true);
+    }, [errors]);
 
     return (
         <main className="login">
@@ -44,7 +54,8 @@ export default function LoginPage() {
                         <div className="password">
                             <input type="password" name="password" id="password" placeholder="Password" className="inputAnimation OnFocus inputField" autoComplete="current-password" ref={password} required/>
                         </div>
-                        <br /><br />
+                        <br />
+                        <InfoText errors={errors} shown={showInfo}/>
                         <div className="loginButtonContainer">
                             <input type="submit" value="Log in" id="loginButton" className="buttonAnimation OnFocus button" />
                         </div>

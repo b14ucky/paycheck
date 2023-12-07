@@ -64,15 +64,15 @@
                     -webkit-transform: scale(1.1); 
                     box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
                 }
-
-                &:active {
-                    box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
-                }
-
+    
                 &:focus {
                     outline: none;
                     box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
                 }
+            }
+
+            #loginButton:active {
+                box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
             }
         }
     }
@@ -117,6 +117,9 @@
 
         .registerForm {
             form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 .inputField {
                     font-family: $font-stack;
                     position: relative;
@@ -129,7 +132,7 @@
                     background: rgb(75 190 167 / .15);
                     font-size: 1rem;
                     font-weight: 500;
-                    color: $green;
+                    color: $white;
 
                     &::placeholder {
                         position: absolute;
@@ -175,6 +178,13 @@
                         outline: none;
                         box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
                     }
+                }
+
+                .invalidField,
+                .invalidField:hover,
+                .invalidField:focus {
+                    box-shadow: 0 0 15px 2px #C54B4B;
+                    color: #C54B4B;
                 }
 
                 .username {
@@ -224,15 +234,15 @@
                             -webkit-transform: scale(1.1); 
                             box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
                         }
-        
-                        &:active {
-                            box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
-                        }
 
                         &:focus {
                             outline: none;
                             box-shadow: 8px 8px 21px -12px rgba(66, 68, 90, 1);
                         }
+                    }
+
+                    #createAccountButton:active {
+                        box-shadow: inset 8px 8px 21px -12px rgba(66, 68, 90, 1);
                     }
                 }
             }

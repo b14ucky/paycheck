@@ -13,12 +13,12 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def validatePassword(self, password, username):
         errors = []
-        if len(password) < 8: errors.append("Password should be at least 8 characters long")
-        if password == username: errors.append("Password should be different than username")
-        if re.search(r'(?=.*[A-Z])', password) is None: errors.append("Password should contain at least one uppercase letter")
-        if re.search(r'(?=.*[a-z])', password) is None: errors.append("Password should contain at least one lowercase letter")
-        if re.search(r'(?=.*\d)', password) is None: errors.append("Password should contain at least one digit")
-        if re.search(r'(?=.*[@$!%*?&])', password) is None: errors.append("Password shoul contain at least one special character")
+        if len(password) < 8: errors.append("Password should be at least 8 characters long!")
+        if password == username: errors.append("Password should be different than username!")
+        if re.search(r'(?=.*[A-Z])', password) is None: errors.append("Password should contain at least one uppercase letter!")
+        if re.search(r'(?=.*[a-z])', password) is None: errors.append("Password should contain at least one lowercase letter!")
+        if re.search(r'(?=.*\d)', password) is None: errors.append("Password should contain at least one digit!")
+        if re.search(r'(?=.*[@$!%*?&])', password) is None: errors.append("Password shoul contain at least one special character!")
         if errors: return errors
         else: return "valid"
         
