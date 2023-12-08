@@ -3,12 +3,14 @@ import Navbar from "./Navbar";
 import Calendar from "./Calendar";
 import Header from "./Header";
 import axios from "axios";
+import PayslipTableItem from "./PayslipTableItem";
 
 const client = axios.create();
 
 export default function DashboardPage() {
 
     const [user, setUser] = useState({});
+    const [payslips, setPayslips] = useState([]);
 
     function displayCurrentDate() {
         const date = new Date();
@@ -29,9 +31,25 @@ export default function DashboardPage() {
         client.get('/auth/user')
         .then(response => {
             setUser(response.data.user);
+            displayPayslips(response.data.user.id);
         })
         .catch(error => navigate('/login/'));
     }, [])
+
+    function displayPayslips(employeeId) {
+        client.get(`/api/get-payslip/?employeeId=${employeeId}`)
+            .then(response => {
+                if (response.data === '') setPayslips([{id: null}]);
+                else if (response.data.length > 4) setPayslips(response.data.slice(response.data.length - 4, response.data.length).reverse());
+                else setPayslips(response.data);
+            })
+            .catch(error => console.log(error));
+    }
+
+    let fontSize = '2.15rem';
+
+    if (payslips.length && payslips[0].netPay > 10000) fontSize = '2rem';
+    if (payslips.length && payslips[0].netPay > 100000) fontSize = '1.85rem';
 
     return (
         <main className="dashboard">
@@ -43,7 +61,7 @@ export default function DashboardPage() {
                         <div className="firstRowItem">
                             <a className="text">Last Pay:</a>
                             <br />
-                            <a className="number">4500 PLN</a>
+                            <a className="number" style={{fontSize}}>{payslips.length ? payslips[0].netPay ? `${payslips[0].netPay} PLN`: '0 PLN' : '0 PLN'}</a>
                         </div>
                         <div className="firstRowItem">
                             <a className="text">Next Pay in:</a>
@@ -67,44 +85,7 @@ export default function DashboardPage() {
                             <div className="container">
                                 <table className="payslips">
                                     <tbody>
-                                        <tr className="payslip">
-                                            <td className="payslipData">
-                                                <a className="text">Month: </a>
-                                                <a className="data">October</a>
-                                            </td>
-                                            <td className="payslipData">
-                                                <a className="text">Net Pay: </a>
-                                                <a className="data">100 000 PLN</a>
-                                            </td>
-                                            <td className="downloadButton">
-                                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4BBEA7"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="#4BBEA7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="#4BBEA7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <Calendar />
-                    </div>
-                    <div className="secondRow">
-                        <div className="secondRowItem">
-                            <a className="title">Latest Payslips</a>
-                            <div className="container">
-                                <table className="payslips">
-                                    <tbody>
-                                        <tr className="payslip">
-                                            <td className="payslipData">
-                                                <a className="text">Month: </a>
-                                                <a className="data">October</a>
-                                            </td>
-                                            <td className="payslipData">
-                                                <a className="text">Net Pay: </a>
-                                                <a className="data">100 000 PLN</a>
-                                            </td>
-                                            <td className="downloadButton">
-                                                <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4BBEA7"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15" stroke="#4BBEA7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> <path d="M12 3V16M12 16L16 11.625M12 16L8 11.625" stroke="#4BBEA7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
-                                            </td>
-                                        </tr>
+                                        {payslips.map(payslip => (<PayslipTableItem key={payslip.id} payslip={payslip} />))}
                                     </tbody>
                                 </table>
                             </div>
