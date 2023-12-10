@@ -24,14 +24,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+
+SECRET_KEY = "django-insecure-sm+rh8s@dwvw7!s=lqb*7%$!tg&y*+d3w5v#7l+f1-cs_q9wf7"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = []
 
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS").split(",")
+CORS_ALLOWED_ORIGINS = [
+    "https://localhost:8000",
+    "https://127.0.0.1:8000",
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -90,13 +94,22 @@ WSGI_APPLICATION = "payslip_generator.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
-    }
+        "NAME": "mydb",
+        "USER": "root",
+        "PASSWORD": "admin",
+        "HOST": "localhost",
+        "PORT": "3306",
+    },
 }
+
+# Test database for CI
+import sys
+
+if "test" in sys.argv:
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "testdb.sqlite3",
+    }
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSIONS_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
