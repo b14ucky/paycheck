@@ -5,3 +5,4 @@ schemes/
 __pycache__
 frontend/node_modules/
 frontend/static/frontend/
+.env
