@@ -3,4 +3,3 @@ django-cors-headers==4.3.0
 djangorestframework==3.14.0
 reportlab==4.0.7
 mysqlclient==2.2.0
-python-dotenv==1.0.0
